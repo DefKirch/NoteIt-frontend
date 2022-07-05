@@ -1,58 +1,75 @@
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Task from "../components/Task";
+import { selectProject } from "../store/project/selectors";
+import { fetchProject } from "../store/project/thunks";
 
 const ProjectPage = () => {
+  const dispatch = useDispatch();
+  const Project = useSelector(selectProject);
+  const [todos, setTodos] = useState();
+  useEffect(() => {
+    dispatch(fetchProject(1));
+  }, [dispatch]);
+
+  //   TODO: Filter the tasks by status and map over them accordingly
   return (
     <Container>
-      <Header className="Project-Page-Header">
-        <h2>My project</h2>
-      </Header>
-      <ProjectPageContainer>
-        <TodoContainer>
-          <h3>Todo</h3>
-          <div>
-            <div>
-              <h4>task 1</h4>
-              <p>
-                In publishing and graphic design, Lorem ipsum is a placeholder
-                text commonly used to demonstrate the visual form of a document
-                or a typeface without relying on meaningful content. Lorem ipsum
-                may be used as a placeholder before final copy is available.
-              </p>
-            </div>
-            <div>
-              <h4>task 2</h4>
-              <p>Description</p>
-            </div>
-          </div>
-        </TodoContainer>
-        <InProgressContainer>
-          <h3>In Progress</h3>
-          <div>
-            <div>
-              <h4>task 3</h4>
-              <p>Description</p>
-            </div>
-            <div>
-              <h4>task 4</h4>
-              <p>Description</p>
-            </div>
-          </div>
-        </InProgressContainer>
-        <DoneContainer>
-          <h3>Done</h3>
-          <div>
-            <div>
-              <h4>task 5</h4>
-              <p>Description</p>
-            </div>
-            <div>
-              <h4>task 6</h4>
-              <p>Description</p>
-            </div>
-          </div>
-        </DoneContainer>
-      </ProjectPageContainer>
+      {Project ? (
+        <>
+          <Header className="Project-Page-Header">
+            <h2>{Project.name}</h2>
+          </Header>
+          <ProjectPageContainer>
+            <TodoContainer>
+              <h3>Todo</h3>
+              <div>
+                {Project.tasks.map((task) => {
+                  return (
+                    <Task
+                      key={task.id}
+                      title={task.title}
+                      description={task.description}
+                      status={task.status}
+                      createdAt={task.createdAt}
+                    />
+                  );
+                })}
+              </div>
+            </TodoContainer>
+            <InProgressContainer>
+              <h3>In Progress</h3>
+              <div>
+                <div>
+                  <h4>task 3</h4>
+                  <p>Description</p>
+                </div>
+                <div>
+                  <h4>task 4</h4>
+                  <p>Description</p>
+                </div>
+              </div>
+            </InProgressContainer>
+            <DoneContainer>
+              <h3>Done</h3>
+              <div>
+                <div>
+                  <h4>task 5</h4>
+                  <p>Description</p>
+                </div>
+                <div>
+                  <h4>task 6</h4>
+                  <p>Description</p>
+                </div>
+              </div>
+            </DoneContainer>
+          </ProjectPageContainer>
+        </>
+      ) : (
+        ""
+      )}
     </Container>
   );
 };
@@ -80,7 +97,7 @@ const TodoContainer = styled.div`
   width: 20rem;
   flex-direction: column;
   border-radius: 0.2rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const InProgressContainer = styled.div`
@@ -91,7 +108,7 @@ const InProgressContainer = styled.div`
   width: 20rem;
   flex-direction: column;
   border-radius: 0.2rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const DoneContainer = styled.div`
@@ -102,7 +119,7 @@ const DoneContainer = styled.div`
   width: 20rem;
   flex-direction: column;
   border-radius: 0.2rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const Container = styled.div`

@@ -2,13 +2,14 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "../store/user/selectors";
+import { selectUser } from "../store/user/selectors";
 import { logOut } from "../store/user/slice";
 
 export const Navigation = () => {
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
-
+  const User = useSelector(selectUser);
   const token = useSelector(selectToken);
 
   return (
@@ -22,6 +23,16 @@ export const Navigation = () => {
         <span />
       </Hamburger>
       <Menu open={open}>
+        {User ? (
+          <MenuLink href="/me">
+            <img
+              src={User.profilePicture}
+              style={{ width: "2rem", borderRadius: "1rem" }}
+            />
+          </MenuLink>
+        ) : (
+          ""
+        )}
         <MenuLink href="/leaflet">New Project</MenuLink>
         <MenuLink href="/myprojects">My Projects</MenuLink>
         {token ? (
