@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Task from "../components/Task";
 
 const ProjectPage = () => {
   return (
@@ -12,7 +13,12 @@ const ProjectPage = () => {
           <div>
             <div>
               <h4>task 1</h4>
-              <p>Description</p>
+              <p>
+                In publishing and graphic design, Lorem ipsum is a placeholder
+                text commonly used to demonstrate the visual form of a document
+                or a typeface without relying on meaningful content. Lorem ipsum
+                may be used as a placeholder before final copy is available.
+              </p>
             </div>
             <div>
               <h4>task 2</h4>
@@ -55,7 +61,7 @@ const Header = styled.div`
   margin: 0;
   padding: 0.5rem;
   height: 3rem;
-  background-color: #221f54;
+  background-color: #25252e;
   color: white;
 `;
 
@@ -70,27 +76,33 @@ const TodoContainer = styled.div`
   display: flex;
   background-color: darkgray;
   margin: 0.3rem 1rem 0.3rem 3rem;
-  padding: 1rem;
+  padding: 0 1rem;
+  width: 20rem;
   flex-direction: column;
   border-radius: 0.2rem;
+  overflow-y: scroll;
 `;
 
 const InProgressContainer = styled.div`
   display: flex;
   background-color: darkgray;
   margin: 0.3rem 1rem;
-  padding: 1rem;
+  padding: 0 1rem;
+  width: 20rem;
   flex-direction: column;
   border-radius: 0.2rem;
+  overflow-y: scroll;
 `;
 
 const DoneContainer = styled.div`
   display: flex;
   background-color: darkgray;
   margin: 0.3rem 1rem;
-  padding: 1rem;
+  padding: 0 1rem;
+  width: 20rem;
   flex-direction: column;
   border-radius: 0.2rem;
+  overflow-y: scroll;
 `;
 
 const Container = styled.div`
