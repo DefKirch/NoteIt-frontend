@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Task from "../components/Task";
+import TaskCard from "../components/TaskCard";
 import { selectProject } from "../store/project/selectors";
 import { fetchProject } from "../store/project/thunks";
 
@@ -10,11 +10,48 @@ const ProjectPage = () => {
   const dispatch = useDispatch();
   const Project = useSelector(selectProject);
   const [todos, setTodos] = useState();
+  const [inProgress, setInProgress] = useState();
+  const [done, setDone] = useState();
+
+  const filterTodos = () => {
+    setTodos(
+      Project.tasks.filter((task) => {
+        return task.status === "Todo";
+      })
+    );
+    console.log(todos);
+  };
+
+  const filterInProgress = () => {
+    setInProgress(
+      Project.tasks.filter((task) => {
+        return task.status === "In Progress";
+      })
+    );
+    console.log(todos);
+  };
+
+  const filterDone = () => {
+    setDone(
+      Project.tasks.filter((task) => {
+        return task.status === "Done";
+      })
+    );
+    console.log(todos);
+  };
+
+  useEffect(() => {
+    if (Project) {
+      filterTodos();
+      filterInProgress();
+      filterDone();
+    }
+  }, [Project]);
+
   useEffect(() => {
     dispatch(fetchProject(1));
   }, [dispatch]);
 
-  //   TODO: Filter the tasks by status and map over them accordingly
   return (
     <Container>
       {Project ? (
@@ -26,43 +63,55 @@ const ProjectPage = () => {
             <TodoContainer>
               <h3>Todo</h3>
               <div>
-                {Project.tasks.map((task) => {
-                  return (
-                    <Task
-                      key={task.id}
-                      title={task.title}
-                      description={task.description}
-                      status={task.status}
-                      createdAt={task.createdAt}
-                    />
-                  );
-                })}
+                {todos
+                  ? todos.map((task) => {
+                      return (
+                        <TaskCard
+                          key={task.id}
+                          title={task.title}
+                          description={task.description}
+                          status={task.status}
+                          createdAt={task.createdAt}
+                        />
+                      );
+                    })
+                  : ""}
               </div>
             </TodoContainer>
             <InProgressContainer>
               <h3>In Progress</h3>
               <div>
-                <div>
-                  <h4>task 3</h4>
-                  <p>Description</p>
-                </div>
-                <div>
-                  <h4>task 4</h4>
-                  <p>Description</p>
-                </div>
+                {inProgress
+                  ? inProgress.map((task) => {
+                      return (
+                        <TaskCard
+                          key={task.id}
+                          title={task.title}
+                          description={task.description}
+                          status={task.status}
+                          createdAt={task.createdAt}
+                        />
+                      );
+                    })
+                  : ""}
               </div>
             </InProgressContainer>
             <DoneContainer>
               <h3>Done</h3>
               <div>
-                <div>
-                  <h4>task 5</h4>
-                  <p>Description</p>
-                </div>
-                <div>
-                  <h4>task 6</h4>
-                  <p>Description</p>
-                </div>
+                {done
+                  ? done.map((task) => {
+                      return (
+                        <TaskCard
+                          key={task.id}
+                          title={task.title}
+                          description={task.description}
+                          status={task.status}
+                          createdAt={task.createdAt}
+                        />
+                      );
+                    })
+                  : ""}
               </div>
             </DoneContainer>
           </ProjectPageContainer>
