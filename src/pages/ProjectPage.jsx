@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import TaskCard from "../components/TaskCard";
 import { selectProject } from "../store/project/selectors";
@@ -9,6 +9,7 @@ import { fetchProject } from "../store/project/thunks";
 const ProjectPage = () => {
   const dispatch = useDispatch();
   const Project = useSelector(selectProject);
+  const { id } = useParams();
   const [todos, setTodos] = useState();
   const [inProgress, setInProgress] = useState();
   const [done, setDone] = useState();
@@ -49,7 +50,7 @@ const ProjectPage = () => {
   }, [Project]);
 
   useEffect(() => {
-    dispatch(fetchProject(1));
+    dispatch(fetchProject(id));
   }, [dispatch]);
 
   return (
