@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import TaskCard from "../components/TaskCard";
 import { selectProject } from "../store/project/selectors";
-import { fetchProject } from "../store/project/thunks";
+import { fetchProject, addNewTask } from "../store/project/thunks";
+import { GrAdd } from "react-icons/gr";
 
 const ProjectPage = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,6 @@ const ProjectPage = () => {
         return task.status === "Todo";
       })
     );
-    console.log(todos);
   };
 
   const filterInProgress = () => {
@@ -29,7 +29,6 @@ const ProjectPage = () => {
         return task.status === "In Progress";
       })
     );
-    console.log(todos);
   };
 
   const filterDone = () => {
@@ -38,7 +37,6 @@ const ProjectPage = () => {
         return task.status === "Done";
       })
     );
-    console.log(todos);
   };
 
   useEffect(() => {
@@ -48,6 +46,10 @@ const ProjectPage = () => {
       filterDone();
     }
   }, [Project]);
+
+  const handleAdd = (status) => {
+    dispatch(addNewTask(status));
+  };
 
   useEffect(() => {
     dispatch(fetchProject(id));
@@ -62,7 +64,19 @@ const ProjectPage = () => {
           </Header>
           <ProjectPageContainer>
             <TodoContainer>
-              <h3>Todo</h3>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <h3>Todo </h3>
+                <AddButton onClick={() => handleAdd("Todo")}>
+                  <GrAdd className="GrAdd" />
+                </AddButton>
+              </div>
+
               <div>
                 {todos
                   ? todos.map((task) => {
@@ -80,7 +94,18 @@ const ProjectPage = () => {
               </div>
             </TodoContainer>
             <InProgressContainer>
-              <h3>In Progress</h3>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <h3>In Progress </h3>
+                <AddButton onClick={() => handleAdd("In Progress")}>
+                  <GrAdd className="GrAdd" />
+                </AddButton>
+              </div>
               <div>
                 {inProgress
                   ? inProgress.map((task) => {
@@ -98,7 +123,18 @@ const ProjectPage = () => {
               </div>
             </InProgressContainer>
             <DoneContainer>
-              <h3>Done</h3>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <h3>Done </h3>
+                <AddButton onClick={() => handleAdd("Done")}>
+                  <GrAdd className="GrAdd" />
+                </AddButton>
+              </div>
               <div>
                 {done
                   ? done.map((task) => {
@@ -176,6 +212,23 @@ const Container = styled.div`
   display: flex;
   flex-flow: column;
   height: 100%;
+`;
+
+const AddButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  width: 1.2rem;
+  height: 1.2rem;
+  &:hover {
+    .GrAdd {
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 1rem;
+    }
+  }
 `;
 
 export default ProjectPage;

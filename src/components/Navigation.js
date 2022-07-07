@@ -34,7 +34,7 @@ export const Navigation = () => {
           ""
         )}
         {/* <MenuLink href="/leaflet">New Project</MenuLink> */}
-        <MenuLink href="/myprojects">My Projects</MenuLink>
+        {token ? <MenuLink href="/myprojects">My Projects</MenuLink> : ""}
         {token ? (
           <MenuLink onClick={() => dispatch(logOut())}>Logout</MenuLink>
         ) : (
