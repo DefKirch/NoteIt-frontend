@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 const ProjectCard = ({ id, name, backgroundColor, color, users }) => {
   return (
-    <ProjectCardContainer>
-      <Link to={`../project/${id}`}>
-        <h4>{name}</h4>
+    <ProjectCardContainer className="Project-Card-Container">
+      <Link className="Project-Link" to={`../project/${id}`}>
+        {name}
       </Link>
       <UserIconContainer>
-        <p>Members</p>
         {users
           ? users.map((user) => {
               return (
@@ -37,8 +36,9 @@ const ProjectCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.05);
-  border-radius: 0.4rem;
+  box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.05);
+  background-color: lightgrey;
+  border-radius: 0.1rem;
   margin: 2rem;
   padding: 1rem 1rem 1rem;
   width: 20rem;

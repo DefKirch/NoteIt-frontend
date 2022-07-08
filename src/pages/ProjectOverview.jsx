@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMyProjects } from "../store/project/thunks";
 import { selectMyProjects } from "../store/project/selectors";
 import ProjectCard from "../components/ProjectCard";
+import { GrAdd } from "react-icons/gr";
+import ReactTooltip from "react-tooltip";
 
 const ProjectOverview = () => {
   const dispatch = useDispatch();
@@ -15,7 +17,11 @@ const ProjectOverview = () => {
   return (
     <div>
       <Header className="Project-Page-Header">
-        <h2>My Projects</h2>
+        <h2>My Projects ({Me ? Me.projects.length : ""})</h2>
+        <NewProjectButton className="New-Project-Button">
+          <GrAdd className="GrAdd" data-tip data-for="newProject" />
+          <ReactTooltip id="newProject">New Project</ReactTooltip>
+        </NewProjectButton>
       </Header>
       <ProjectsContainer>
         {Me
@@ -50,6 +56,18 @@ const ProjectsContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin: 1rem;
 `;
 
+const NewProjectButton = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  width: 1.2rem;
+  height: 1.2rem;
+  }
+`;
 export default ProjectOverview;

@@ -177,7 +177,7 @@ const ProjectPageContainer = styled.div`
 
 const TodoContainer = styled.div`
   display: flex;
-  background-color: darkgray;
+  background-color: #a3a3a3;
   margin: 0.3rem 1rem 0.3rem 3rem;
   padding: 0 1rem;
   width: 20rem;
@@ -188,7 +188,7 @@ const TodoContainer = styled.div`
 
 const InProgressContainer = styled.div`
   display: flex;
-  background-color: darkgray;
+  background-color: #a3a3a3;
   margin: 0.3rem 1rem;
   padding: 0 1rem;
   width: 20rem;
@@ -199,7 +199,7 @@ const InProgressContainer = styled.div`
 
 const DoneContainer = styled.div`
   display: flex;
-  background-color: darkgray;
+  background-color: #a3a3a3;
   margin: 0.3rem 1rem;
   padding: 0 1rem;
   width: 20rem;

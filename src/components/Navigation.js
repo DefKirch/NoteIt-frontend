@@ -15,7 +15,7 @@ export const Navigation = () => {
   return (
     <Nav>
       <Logo href="/">
-        Codaisseur<span>templates</span>
+        <span>Note</span>It
       </Logo>
       <Hamburger onClick={() => setOpen(!open)}>
         <span />
