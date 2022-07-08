@@ -18,11 +18,8 @@ const ProjectOverview = () => {
     <div>
       <Header className="Project-Page-Header">
         <h2>My Projects ({Me ? Me.projects.length : ""})</h2>
-        <NewProjectButton className="New-Project-Button">
-          <GrAdd className="GrAdd" data-tip data-for="newProject" />
-          <ReactTooltip id="newProject">New Project</ReactTooltip>
-        </NewProjectButton>
       </Header>
+      <Button>New Project</Button>
       <ProjectsContainer>
         {Me
           ? Me.projects.map((project) => {
@@ -59,15 +56,19 @@ const ProjectsContainer = styled.div`
   margin: 1rem;
 `;
 
-const NewProjectButton = styled.button`
-  background: none;
+const Button = styled.button`
+  color: white;
+  background: darkgray;
   border: none;
   padding: 0;
   font: inherit;
   cursor: pointer;
-  outline: inherit;
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 5rem;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 0.3rem;
+  &:hover {
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.05);
   }
 `;
 export default ProjectOverview;

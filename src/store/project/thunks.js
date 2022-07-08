@@ -17,8 +17,11 @@ export const fetchMyProjects = () => async (dispatch, getState) => {
 };
 
 export const fetchProject = (id) => async (dispatch, getState) => {
+  const token = selectToken(getState());
   try {
-    const response = await axios.get(`${apiUrl}/projects/${id}`);
+    const response = await axios.get(`${apiUrl}/projects/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     console.log("Response:", response.data);
     dispatch(setProject(response.data));
   } catch (e) {
