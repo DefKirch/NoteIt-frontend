@@ -5,9 +5,9 @@ const TaskCard = ({ id, title, description, status, createdAt }) => {
   return (
     <Task>
       <h4>{title}</h4>
-      <p>{description}</p>
+      <PDescription>{description}</PDescription>
       {/* <p>{status}</p> */}
-      <p>{date}</p>
+      {/* <p>{date}</p> */}
     </Task>
   );
 };
@@ -23,6 +23,13 @@ const Task = styled.div`
   color: black;
   height: 10rem;
   overflow-y: hidden;
+`;
+
+const PDescription = styled.p`
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `;
 
 export default TaskCard;
