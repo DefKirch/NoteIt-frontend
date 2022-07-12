@@ -1,25 +1,28 @@
-import { useState } from "react";
 import styled from "styled-components";
-
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createNewProject } from "../../store/project/thunks";
 const NewProjectForm = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [pName, setPName] = useState("");
   const [pDesc, setPDesc] = useState("");
 
-  const submitForm = (event) => {
-    event.preventDedault();
-    console.log("name:", pName);
-    console.log("desc:", pDesc);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(createNewProject(pName, pDesc, navigate));
   };
+
   return (
     <Container>
       <NewProjectContainer>
-        <form onSubmit={submitForm}>
+        <form onSubmit={handleSubmit}>
           <label>
             Project Name:
             <input
               type="text"
-              id="pname"
-              name="pname"
               value={pName}
               onChange={(e) => setPName(e.target.value)}
             />
@@ -28,13 +31,11 @@ const NewProjectForm = () => {
             Description:
             <input
               type="text"
-              id="pdesc"
-              name="pdesc"
               value={pDesc}
               onChange={(e) => setPDesc(e.target.value)}
             />
           </label>
-          <button type="submit">Create new project</button>
+          <input type="submit" />
         </form>
       </NewProjectContainer>
     </Container>

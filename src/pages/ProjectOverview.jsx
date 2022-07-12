@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyProjects } from "../store/project/thunks";
 import { selectMyProjects } from "../store/project/selectors";
+import { Link } from "react-router-dom";
 import ProjectCard from "../components/ProjectCard";
 import { GrAdd } from "react-icons/gr";
 import ReactTooltip from "react-tooltip";
@@ -19,7 +20,7 @@ const ProjectOverview = () => {
       <Header className="Project-Page-Header">
         <h2>My Projects ({Me ? Me.projects.length : ""})</h2>
       </Header>
-      <Button>New Project</Button>
+      <NewProjectButton to="/newproject">New Project</NewProjectButton>
       <ProjectsContainer>
         {Me
           ? Me.projects.map((project) => {
@@ -56,11 +57,12 @@ const ProjectsContainer = styled.div`
   margin: 1rem;
 `;
 
-const Button = styled.button`
+const NewProjectButton = styled(Link)`
+  display: flex;
+  text-decoration: none;
   color: white;
   background: darkgray;
   border: none;
-  padding: 0;
   font: inherit;
   cursor: pointer;
   width: 5rem;
