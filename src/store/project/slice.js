@@ -15,9 +15,12 @@ export const projectSlice = createSlice({
     setMyProjects: (state, action) => {
       state.myProjects = action.payload;
     },
+    addTask: (state, action) => {
+      state.project.tasks = [...state.project.tasks, action.payload];
+    },
   },
 });
 
-export const { setProject, setMyProjects } = projectSlice.actions;
+export const { setProject, setMyProjects, addTask } = projectSlice.actions;
 
 export default projectSlice.reducer;

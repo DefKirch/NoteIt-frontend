@@ -2,8 +2,24 @@ import { InputBase } from "@mui/material";
 import { Paper } from "@mui/material";
 import styled from "styled-components";
 import { MdClear } from "react-icons/md";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewTask } from "../../store/project/thunks";
+import { selectProjectId } from "../../store/project/selectors";
 
-const InputCard = ({ setOpen }) => {
+const InputCard = ({ setOpen, status }) => {
+  const dispatch = useDispatch();
+  const [taskName, setTaskName] = useState("");
+  const pId = useSelector(selectProjectId);
+
+  const handleNewTask = () => {
+    if (status && taskName && pId) {
+      dispatch(addNewTask(status, taskName, pId));
+      setOpen(false);
+      setTaskName("");
+    }
+  };
+
   return (
     <InputCardContainer>
       <div>
@@ -13,11 +29,13 @@ const InputCard = ({ setOpen }) => {
             fullWidth
             placeholder="task name"
             className="InputBase-Selector"
+            value={taskName}
+            onChange={(e) => setTaskName(e.target.value)}
           />
         </Paper>
       </div>
       <div style={{ display: "flex", alignItems: "center" }}>
-        <Button className="Confirm-Button" onClick={() => setOpen(false)}>
+        <Button className="Confirm-Button" onClick={() => handleNewTask()}>
           Add
         </Button>
         <MdClear className="Clear-Button" onClick={() => setOpen(false)} />

@@ -83,7 +83,7 @@ const ProjectPage = () => {
                     })
                   : ""}
               </div>
-              <TaskForm />
+              <TaskForm status="Todo" />
             </TodoContainer>
             <InProgressContainer>
               <div
@@ -113,7 +113,7 @@ const ProjectPage = () => {
                     })
                   : ""}
               </div>
-              <TaskForm />
+              <TaskForm status="In Progress" />
             </InProgressContainer>
             <DoneContainer>
               <div
@@ -143,7 +143,7 @@ const ProjectPage = () => {
                     })
                   : ""}
               </div>
-              <TaskForm />
+              <TaskForm status="Done" />
             </DoneContainer>
           </ProjectPageContainer>
         </>
@@ -165,7 +165,7 @@ const Header = styled.div`
 const ProjectPageContainer = styled.div`
   display: flex;
   color: white;
-  height: calc(100vh - 8rem);
+  height: calc(100vh - 8.2rem);
   color: black;
 `;
 

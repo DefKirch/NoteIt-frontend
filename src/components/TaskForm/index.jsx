@@ -9,12 +9,12 @@ import { useState } from "react";
 //   },
 // }));
 
-const TaskForm = () => {
+const TaskForm = ({ status }) => {
   const [open, setOpen] = useState(false);
   return (
     <TForm>
       <Collapse in={open}>
-        <InputCard setOpen={setOpen} />
+        <InputCard setOpen={setOpen} status={status} />
       </Collapse>
       <Collapse in={!open}>
         <div className="Input-Card-Row" onClick={() => setOpen(!open)}>
@@ -30,7 +30,6 @@ const TForm = styled.div`
   flex-direction: column;
   align-items: flex-start;
   border-radius: 0.5rem;
-  margin-top: 1rem;
   background-color: #ebecf0;
   & .Input-Card-Row {
     display: flex;
@@ -40,9 +39,9 @@ const TForm = styled.div`
   }
   & .Input-Card-Row:hover {
     background-color: rgba(0, 0, 0, 0.25);
-    transition: 500ms;
+    transition: 750ms;
     color: white;
-    // cursor: pointer;
+    cursor: pointer;
   }
 `;
 export default TaskForm;

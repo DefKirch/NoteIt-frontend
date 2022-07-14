@@ -1,7 +1,7 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
 import { selectToken } from "../user/selectors";
-import { setProject, setMyProjects } from "./slice";
+import { setProject, setMyProjects, addTask } from "./slice";
 
 export const fetchMyProjects = () => async (dispatch, getState) => {
   const token = selectToken(getState());
@@ -47,10 +47,24 @@ export const createNewProject =
     }
   };
 
-export const addNewTask = (status) => async (dispatch, getState) => {
-  try {
-    console.log("Status:", status);
-  } catch (e) {
-    console.log(e.message);
-  }
-};
+export const addNewTask =
+  (status, title, pId, description) => async (dispatch, getState) => {
+    const token = selectToken(getState());
+    try {
+      // console.log("Status:", status, "Title:", title, "pId:", pId);
+      const response = await axios.post(
+        `${apiUrl}/projects/task/${pId}`,
+        {
+          status,
+          title,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(response.data);
+      dispatch(addTask(response.data));
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
