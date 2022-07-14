@@ -6,8 +6,6 @@ const TaskCard = ({ id, title, description, status, createdAt }) => {
     <Task>
       <h4>{title}</h4>
       <PDescription>{description}</PDescription>
-      {/* <p>{status}</p> */}
-      {/* <p>{date}</p> */}
     </Task>
   );
 };
@@ -15,14 +13,15 @@ const TaskCard = ({ id, title, description, status, createdAt }) => {
 const Task = styled.div`
   display: flex;
   flex-direction: column;
-  // justify-content: space-between;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   padding: 0 1rem 1rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
+  margin-bottom: 1rem;
   background-color: white;
   color: black;
-  height: 10rem;
+  height: 7.5rem;
   overflow-y: hidden;
+  background-color: #ddd;
 `;
 
 const PDescription = styled.p`
