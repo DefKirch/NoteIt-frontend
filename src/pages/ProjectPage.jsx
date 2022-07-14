@@ -38,10 +38,6 @@ const ProjectPage = () => {
     }
   }, [Project]);
 
-  const handleAdd = (status) => {
-    dispatch(addNewTask(status));
-  };
-
   useEffect(() => {
     dispatch(fetchProject(id));
   }, [dispatch]);
@@ -55,20 +51,10 @@ const ProjectPage = () => {
           </Header>
           <ProjectPageContainer>
             <TodoContainer>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
+              <div className="sticky">
                 <h3>Todo </h3>
-                {/* <AddButton onClick={() => handleAdd("Todo")}>
-                  <GrAdd className="GrAdd" />
-                </AddButton> */}
               </div>
-
-              <div>
+              <div className="Task-Container">
                 {todos
                   ? todos.map((task) => {
                       return (
@@ -87,19 +73,10 @@ const ProjectPage = () => {
               <TaskForm status="Todo" />
             </TodoContainer>
             <InProgressContainer>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <h3>In Progress </h3>
-                {/* <AddButton onClick={() => handleAdd("In Progress")}>
-                  <GrAdd className="GrAdd" />
-                </AddButton> */}
+              <div className="sticky">
+                <h3>In Progress</h3>
               </div>
-              <div>
+              <div className="Task-Container">
                 {inProgress
                   ? inProgress.map((task) => {
                       return (
@@ -118,19 +95,10 @@ const ProjectPage = () => {
               <TaskForm status="In Progress" />
             </InProgressContainer>
             <DoneContainer>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
+              <div className="sticky">
                 <h3>Done </h3>
-                {/* <AddButton onClick={() => handleAdd("Done")}>
-                  <GrAdd className="GrAdd" />
-                </AddButton> */}
               </div>
-              <div>
+              <div className="Task-Container">
                 {done
                   ? done.map((task) => {
                       return (
@@ -212,6 +180,19 @@ const Container = styled.div`
   display: flex;
   flex-flow: column;
   height: 100%;
+  & .sticky {
+    z-index: 1;
+    h3 {
+      background-color: #ebecf0;
+      padding: 1rem;
+      position: absolute;
+      width: 17rem;
+      border-radius: 0.2rem;
+    }
+  }
+  & .Task-Container {
+    margin-top: 5rem;
+  }
 `;
 
 const AddButton = styled.button`

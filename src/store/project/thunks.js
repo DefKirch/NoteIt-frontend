@@ -62,7 +62,6 @@ export const addNewTask =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(response.data);
       dispatch(addTask(response.data));
     } catch (e) {
       console.log(e.message);
@@ -73,7 +72,7 @@ export const updateTask =
   (title, description, id) => async (dispatch, getState) => {
     const token = selectToken(getState());
     try {
-      const response = await axios.patch(
+      await axios.patch(
         `${apiUrl}/projects/task/${id}`,
         {
           title,
@@ -83,8 +82,6 @@ export const updateTask =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      dispatch(updateTask(response.data));
-      console.log(response.data);
     } catch (e) {
       console.log(e.message);
     }
