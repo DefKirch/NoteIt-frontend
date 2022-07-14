@@ -6,6 +6,7 @@ import TaskCard from "../components/TaskCard";
 import { selectProject } from "../store/project/selectors";
 import { fetchProject, addNewTask } from "../store/project/thunks";
 import { GrAdd } from "react-icons/gr";
+import TaskForm from "../components/TaskForm";
 
 const ProjectPage = () => {
   const dispatch = useDispatch();
@@ -16,27 +17,17 @@ const ProjectPage = () => {
   const [done, setDone] = useState();
 
   const filterTodos = () => {
-    setTodos(
-      Project.tasks.filter((task) => {
-        return task.status === "Todo";
-      })
-    );
+    setTodos(Project.tasks.filter((task) => task.status === "Todo"));
   };
 
   const filterInProgress = () => {
     setInProgress(
-      Project.tasks.filter((task) => {
-        return task.status === "In Progress";
-      })
+      Project.tasks.filter((task) => task.status === "In Progress")
     );
   };
 
   const filterDone = () => {
-    setDone(
-      Project.tasks.filter((task) => {
-        return task.status === "Done";
-      })
-    );
+    setDone(Project.tasks.filter((task) => task.status === "Done"));
   };
 
   useEffect(() => {
@@ -72,9 +63,9 @@ const ProjectPage = () => {
                 }}
               >
                 <h3>Todo </h3>
-                <AddButton onClick={() => handleAdd("Todo")}>
+                {/* <AddButton onClick={() => handleAdd("Todo")}>
                   <GrAdd className="GrAdd" />
-                </AddButton>
+                </AddButton> */}
               </div>
 
               <div>
@@ -92,6 +83,7 @@ const ProjectPage = () => {
                     })
                   : ""}
               </div>
+              <TaskForm />
             </TodoContainer>
             <InProgressContainer>
               <div
@@ -102,9 +94,9 @@ const ProjectPage = () => {
                 }}
               >
                 <h3>In Progress </h3>
-                <AddButton onClick={() => handleAdd("In Progress")}>
+                {/* <AddButton onClick={() => handleAdd("In Progress")}>
                   <GrAdd className="GrAdd" />
-                </AddButton>
+                </AddButton> */}
               </div>
               <div>
                 {inProgress
@@ -121,6 +113,7 @@ const ProjectPage = () => {
                     })
                   : ""}
               </div>
+              <TaskForm />
             </InProgressContainer>
             <DoneContainer>
               <div
@@ -131,9 +124,9 @@ const ProjectPage = () => {
                 }}
               >
                 <h3>Done </h3>
-                <AddButton onClick={() => handleAdd("Done")}>
+                {/* <AddButton onClick={() => handleAdd("Done")}>
                   <GrAdd className="GrAdd" />
-                </AddButton>
+                </AddButton> */}
               </div>
               <div>
                 {done
@@ -150,6 +143,7 @@ const ProjectPage = () => {
                     })
                   : ""}
               </div>
+              <TaskForm />
             </DoneContainer>
           </ProjectPageContainer>
         </>
@@ -170,42 +164,45 @@ const Header = styled.div`
 
 const ProjectPageContainer = styled.div`
   display: flex;
-  background-color: lightgray;
   color: white;
   height: calc(100vh - 8rem);
+  color: black;
 `;
 
 const TodoContainer = styled.div`
   display: flex;
-  background-color: #a3a3a3;
   margin: 0.3rem 1rem 0.3rem 3rem;
   padding: 0 1rem;
   width: 20rem;
   flex-direction: column;
   border-radius: 0.2rem;
   overflow-y: auto;
+  box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
+  background-color: #ebecf0;
 `;
 
 const InProgressContainer = styled.div`
   display: flex;
-  background-color: #a3a3a3;
   margin: 0.3rem 1rem;
   padding: 0 1rem;
   width: 20rem;
   flex-direction: column;
   border-radius: 0.2rem;
   overflow-y: auto;
+  box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
+  background-color: #ebecf0;
 `;
 
 const DoneContainer = styled.div`
   display: flex;
-  background-color: #a3a3a3;
   margin: 0.3rem 1rem;
   padding: 0 1rem;
   width: 20rem;
   flex-direction: column;
   border-radius: 0.2rem;
   overflow-y: auto;
+  box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
+  background-color: #ebecf0;
 `;
 
 const Container = styled.div`
