@@ -38,8 +38,8 @@ const ProjectCardContainer = styled.div`
   justify-content: space-between;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.05);
   background-color: lightgrey;
-  border-radius: 0.1rem;
-  margin: 2rem;
+  border-radius: 0.2rem;
+  margin: 0.5rem;
   padding: 1rem 1rem 1rem;
   width: 20rem;
   height: 10rem;

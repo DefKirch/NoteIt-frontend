@@ -68,3 +68,24 @@ export const addNewTask =
       console.log(e.message);
     }
   };
+
+export const updateTask =
+  (title, description, id) => async (dispatch, getState) => {
+    const token = selectToken(getState());
+    try {
+      const response = await axios.patch(
+        `${apiUrl}/projects/task/${id}`,
+        {
+          title,
+          description,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      dispatch(updateTask(response.data));
+      console.log(response.data);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
