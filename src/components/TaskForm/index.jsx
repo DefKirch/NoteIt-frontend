@@ -39,9 +39,11 @@ const TForm = styled.div`
   }
   & .Input-Card-Row:hover {
     background-color: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
     transition: 750ms;
     color: white;
     cursor: pointer;
+    font-size: 1.4rem;
   }
 `;
 export default TaskForm;
