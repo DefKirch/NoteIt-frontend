@@ -150,6 +150,13 @@ const TodoContainer = styled.div`
   overflow-y: auto;
   box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
   background-color: #ebecf0;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 `;
 
 const InProgressContainer = styled.div`
@@ -162,6 +169,13 @@ const InProgressContainer = styled.div`
   overflow-y: auto;
   box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
   background-color: #ebecf0;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 `;
 
 const DoneContainer = styled.div`
@@ -174,6 +188,13 @@ const DoneContainer = styled.div`
   overflow-y: auto;
   box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
   background-color: #ebecf0;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 `;
 
 const Container = styled.div`
@@ -186,7 +207,7 @@ const Container = styled.div`
       background-color: #ebecf0;
       padding: 1rem;
       position: absolute;
-      width: 17rem;
+      width: 19rem;
       border-radius: 0.2rem;
     }
   }
