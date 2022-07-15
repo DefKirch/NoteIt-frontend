@@ -9,7 +9,9 @@ const TaskCard = ({ id, title, description, status, createdAt }) => {
   const date = new Date(createdAt).toLocaleDateString();
   const dispatch = useDispatch();
   const [cardTitle, setCardTitle] = useState(title);
-  const [cardDescription, setCardDescription] = useState(description);
+  const [cardDescription, setCardDescription] = useState(
+    description ? description : ""
+  );
   const handleBlur = () => {
     // if (!cardTitle === title) {
     dispatch(updateTask(cardTitle, cardDescription, id));

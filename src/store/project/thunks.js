@@ -82,7 +82,7 @@ export const updateTask =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(response.data);
+      console.log(response.data.message);
     } catch (e) {
       console.log(e.message);
     }

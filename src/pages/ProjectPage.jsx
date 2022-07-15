@@ -208,7 +208,6 @@ const Container = styled.div`
       padding: 1rem;
       position: absolute;
       width: 19rem;
-      border-radius: 0.2rem;
     }
   }
   & .Task-Container {
