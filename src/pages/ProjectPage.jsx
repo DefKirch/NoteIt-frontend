@@ -3,18 +3,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import TaskCard from "../components/TaskCard";
+import TaskCardDrag from "../components/TaskCardDrag";
 import { selectProject } from "../store/project/selectors";
 import { fetchProject, addNewTask } from "../store/project/thunks";
-import { GrAdd } from "react-icons/gr";
 import TaskForm from "../components/TaskForm";
+// import { DndProvider } from "react-dnd";
+// import { HTML5Backend } from "react-dnd-html5-backend";
+// import TasCardDrag
+import DropWrapper from "../components/DropWrapper";
+import TaskColumn from "../components/TaskColumn";
 
 const ProjectPage = () => {
   const dispatch = useDispatch();
   const Project = useSelector(selectProject);
+  const statuses = ["Todo", "In Progress", "Done"];
+  const [tasks, setTasks] = useState();
   const { id } = useParams();
   const [todos, setTodos] = useState();
   const [inProgress, setInProgress] = useState();
   const [done, setDone] = useState();
+
+  const onDrop = (task, monitor, status) => {
+    const mapping = statuses.find((si) => si.status === status);
+
+    setTasks((prevState) => {
+      const newTasks = prevState
+        .filter((i) => i.id !== task.id)
+        .concat({ ...task, status });
+      return [...newTasks];
+    });
+  };
+
+  const moveTask = (dragIndex, hoverIndex) => {
+    const task = tasks[dragIndex];
+    setTasks((prevState) => {
+      const newTasks = prevState.filter((i, idx) => idx !== dragIndex);
+      newTasks.splice(hoverIndex, 0, task);
+      return [...newTasks];
+    });
+  };
 
   const filterTodos = () => {
     setTodos(Project.tasks.filter((task) => task.status === "Todo"));
@@ -40,6 +67,9 @@ const ProjectPage = () => {
 
   useEffect(() => {
     dispatch(fetchProject(id));
+    if (Project) {
+      setTasks(Project.tasks);
+    }
   }, [dispatch]);
 
   return (
@@ -50,29 +80,49 @@ const ProjectPage = () => {
             <h2>{Project.name}</h2>
           </Header>
           <ProjectPageContainer>
-            <TodoContainer>
+            <TodoContainer className={"col-wrapper"}>
               <div className="sticky">
                 <h3>Todo </h3>
               </div>
-              <div className="Task-Container">
-                {todos
-                  ? todos.map((task) => {
-                      return (
-                        <TaskCard
-                          key={task.id}
-                          id={task.id}
-                          title={task.title}
-                          description={task.description}
-                          status={task.status}
-                          createdAt={task.createdAt}
-                        />
-                      );
-                    })
-                  : ""}
-              </div>
+              <DropWrapper onDrop={onDrop} status={"Todo"}>
+                <TaskColumn>
+                  {tasks
+                    ? tasks
+                        .filter((task) => task.status === "Todo")
+                        .map((task, tdx) => (
+                          <TaskCardDrag
+                            key={task.id}
+                            id={task.id}
+                            index={tdx}
+                            moveTask={moveTask}
+                            title={task.title}
+                            description={task.description}
+                            status={task.status}
+                            createdAt={task.createdAt}
+                          />
+                        ))
+                    : ""}
+                </TaskColumn>
+              </DropWrapper>
+              {/* <div className="Task-Container">
+                  {todos
+                    ? todos.map((task) => {
+                        return (
+                          <TaskCard
+                            key={task.id}
+                            id={task.id}
+                            title={task.title}
+                            description={task.description}
+                            status={task.status}
+                            createdAt={task.createdAt}
+                          />
+                        );
+                      })
+                    : ""}
+                </div> */}
               <TaskForm status="Todo" />
             </TodoContainer>
-            <InProgressContainer>
+            <InProgressContainer className={"col-wrapper"}>
               <div className="sticky">
                 <h3>In Progress</h3>
               </div>
@@ -94,7 +144,7 @@ const ProjectPage = () => {
               </div>
               <TaskForm status="In Progress" />
             </InProgressContainer>
-            <DoneContainer>
+            <DoneContainer className={"col-wrapper"}>
               <div className="sticky">
                 <h3>Done </h3>
               </div>

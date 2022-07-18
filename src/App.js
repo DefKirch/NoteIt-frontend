@@ -8,6 +8,8 @@ import { Homepage, Login, SignUp } from "./pages";
 import ProjectPage from "./pages/ProjectPage";
 import ProjectOverview from "./pages/ProjectOverview";
 import NewProjectForm from "./components/NewProjectForm";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,17 +20,18 @@ function App() {
 
   return (
     <div>
-      <Navigation />
-      <MessageBox />
-      <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        {/* Make this link to all my projects, instead of just 1 placeholder project! */}
-        <Route path="/myprojects" element={<ProjectOverview />} />
-        <Route path="/project/:id" element={<ProjectPage />} />
-        <Route path="/newproject" element={<NewProjectForm />} />
-      </Routes>
+      <DndProvider backend={HTML5Backend}>
+        <Navigation />
+        <MessageBox />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/myprojects" element={<ProjectOverview />} />
+          <Route path="/project/:id" element={<ProjectPage />} />
+          <Route path="/newproject" element={<NewProjectForm />} />
+        </Routes>
+      </DndProvider>
     </div>
   );
 }
