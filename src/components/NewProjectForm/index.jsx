@@ -35,7 +35,16 @@ const NewProjectForm = () => {
               onChange={(e) => setPDesc(e.target.value)}
             />
           </label>
-          <input className="Submit-Button" type="submit" />
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <button
+              className="Submit-Button"
+              style={{ marginRight: "1rem" }}
+              onClick={() => navigate(-1)}
+            >
+              Back
+            </button>
+            <input className="Submit-Button" type="submit" />
+          </div>
         </form>
       </NewProjectContainer>
     </Container>
@@ -46,7 +55,7 @@ const NewProjectContainer = styled.div`
   display: flex;
   background-color: gray;
   width: 25rem;
-  height: 30rem;
+  height: 15rem;
   padding: 2rem;
   border-radius: 0.2rem;
   box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.2);
