@@ -8,6 +8,7 @@ import { Homepage, Login, SignUp } from "./pages";
 import ProjectPage from "./pages/ProjectPage";
 import ProjectOverview from "./pages/ProjectOverview";
 import NewProjectForm from "./components/NewProjectForm";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        {/* Make this link to all my projects, instead of just 1 placeholder project! */}
+        <Route path="/me" element={<ProfilePage />} />
         <Route path="/myprojects" element={<ProjectOverview />} />
         <Route path="/project/:id" element={<ProjectPage />} />
         <Route path="/newproject" element={<NewProjectForm />} />
