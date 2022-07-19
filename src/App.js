@@ -9,7 +9,7 @@ import ProjectPage from "./pages/ProjectPage";
 import ProjectOverview from "./pages/ProjectOverview";
 import NewProjectForm from "./components/NewProjectForm";
 import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { HTML5Backend as Backend } from "react-dnd-html5-backend";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div>
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={Backend}>
         <Navigation />
         <MessageBox />
         <Routes>

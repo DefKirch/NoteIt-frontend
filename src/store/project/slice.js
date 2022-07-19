@@ -18,9 +18,13 @@ export const projectSlice = createSlice({
     addTask: (state, action) => {
       state.project.tasks = [...state.project.tasks, action.payload];
     },
+    changeTaskStatus: (state, action) => {
+      // state.project.task[action.payload]
+    },
   },
 });
 
-export const { setProject, setMyProjects, addTask } = projectSlice.actions;
+export const { setProject, setMyProjects, addTask, changeTaskStatus } =
+  projectSlice.actions;
 
 export default projectSlice.reducer;

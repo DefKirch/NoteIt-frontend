@@ -1,7 +1,7 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
 import { selectToken } from "../user/selectors";
-import { setProject, setMyProjects, addTask } from "./slice";
+import { setProject, setMyProjects, addTask, changeTaskStatus } from "./slice";
 
 export const fetchMyProjects = () => async (dispatch, getState) => {
   const token = selectToken(getState());
@@ -69,14 +69,16 @@ export const addNewTask =
   };
 
 export const updateTask =
-  (title, description, id) => async (dispatch, getState) => {
+  (title, description, id, status) => async (dispatch, getState) => {
     const token = selectToken(getState());
     try {
+      console.log(title, description, id, status);
       const response = await axios.patch(
         `${apiUrl}/projects/task/${id}`,
         {
           title,
           description,
+          status,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -87,3 +89,23 @@ export const updateTask =
       console.log(e.message);
     }
   };
+
+export const updateTaskStatus = (id, status) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  try {
+    console.log(id, status);
+    const response = await axios.patch(
+      `${apiUrl}/projects/task/${id}`,
+      {
+        status,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    dispatch(changeTaskStatus());
+    console.log(response.data.message);
+  } catch (e) {
+    console.log(e.message);
+  }
+};

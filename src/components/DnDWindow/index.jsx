@@ -11,6 +11,7 @@ const DnDWindow = ({ show, onClose, item }) => {
       className={"modal"}
       overlayClassName={"overlay"}
     >
+      <h1>Modal</h1>
       <div className={"close-btn-ctn"}>
         <h1 style={{ flex: "1 90%" }}>{item.title}</h1>
         <button className={"close-btn"} onClick={onClose}>
