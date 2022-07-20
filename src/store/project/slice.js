@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   project: null,
@@ -19,12 +19,33 @@ export const projectSlice = createSlice({
       state.project.tasks = [...state.project.tasks, action.payload];
     },
     changeTaskStatus: (state, action) => {
-      // state.project.task[action.payload]
+      const arrayToUpdate = [...state.project.tasks];
+      arrayToUpdate.map((task) =>
+        task.id === action.payload.id
+          ? {
+              ...task,
+              status: action.payload.status,
+            }
+          : task
+      );
+      state.project.tasks = arrayToUpdate;
+      // console.log(state.project.tasks);
+    },
+    deleteOneTask: (state, action) => {
+      const updatedArray = [...state.project.tasks].filter(
+        (task) => task.id !== action.payload
+      );
+      state.project.tasks = updatedArray;
     },
   },
 });
 
-export const { setProject, setMyProjects, addTask, changeTaskStatus } =
-  projectSlice.actions;
+export const {
+  setProject,
+  setMyProjects,
+  addTask,
+  changeTaskStatus,
+  deleteOneTask,
+} = projectSlice.actions;
 
 export default projectSlice.reducer;

@@ -1,6 +1,6 @@
 import Modal from "react-modal";
 
-Modal.setAppElement("body");
+Modal.setAppElement("#root");
 
 const DnDWindow = ({ show, onClose, item }) => {
   return (

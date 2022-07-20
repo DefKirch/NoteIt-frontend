@@ -7,6 +7,7 @@ import {
   fetchProject,
   updateTask,
   updateTaskStatus,
+  deleteTask,
 } from "../../store/project/thunks";
 import { selectProjectId } from "../../store/project/selectors";
 import DnDWindow from "../DnDWindow";
@@ -23,7 +24,6 @@ const TaskCardDrag = ({ item, index, moveItem, filter }) => {
     item.status === "Done"
       ? dispatch(updateTaskStatus(item.id, "In Progress"))
       : dispatch(updateTaskStatus(item.id, "Todo"));
-    console.log("LEft right");
   };
 
   const handleRight = () => {
@@ -31,6 +31,10 @@ const TaskCardDrag = ({ item, index, moveItem, filter }) => {
       ? dispatch(updateTaskStatus(item.id, "In Progress"))
       : dispatch(updateTaskStatus(item.id, "Done"));
     filter();
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteTask(item.id));
   };
 
   const handleBlur = () => {
@@ -111,6 +115,11 @@ const TaskCardDrag = ({ item, index, moveItem, filter }) => {
           onChange={(e) => setCardDescription(e.target.value)}
           onBlur={handleBlur}
         />
+
+        <button className="X-Button" onClick={() => handleDelete()}>
+          x
+        </button>
+
         <div className="Arrow-Container">
           <button className="Arrow-Button" onClick={() => handleLeft()}>
             &lt;
@@ -122,19 +131,6 @@ const TaskCardDrag = ({ item, index, moveItem, filter }) => {
       </Task>
       {/* <DnDWindow item={item} onClose={onClose} show={show} /> */}
     </Fragment>
-    // <Fragment>
-    //   <div
-    //     ref={ref}
-    //     style={{ opacity: isDragging ? 0 : 1 }}
-    //     className={"item"}
-    //     onClick={onOpen}
-    //   >
-    //     <div className={"color-bar"}>
-    //       <p className={"item-title"}>{item.title}</p>
-    //       <p className={"item-description"}>{item.description}</p>
-    //     </div>
-    //   </div>
-    // </Fragment>
   );
 };
 
@@ -151,6 +147,12 @@ const Task = styled.div`
   max-height: fit-content;
   overflow-y: auto;
   background-color: #ddd;
+  position: relative;
+
+  & .Task-Container {
+    background-color: blue;
+  }
+
   & .Task-Title {
     font-size: 1.2rem;
     font-weight: bold;
@@ -159,19 +161,38 @@ const Task = styled.div`
     overflow-y: hidden;
   }
   & .Arrow-Container {
-    // position: relative;
-    background-color: blue;
-    display: flex;
+    // display: none;
+    position: absolute;
     justify-content: flex-end;
     width: 4rem;
+    right: 0;
+    bottom: 0;
   }
-
   & .Arrow-Button {
-    // bottom: 0;
-    // right: 0;
+    background-color: inherit;
+    border: none;
+    bottom: 0;
+    right: 0;
     width: 2rem;
-    // position: absolute;
+    position: relative;
     height: 1.5rem;
+  }
+  & .Arrow-Button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+  }
+  & .X-Button {
+    font-size: 1.1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: inherit;
+    border: none;
+  }
+  & .X-Button:hover {
+    background-color: lightgrey;
+    border-radius: 0.2rem;
+    cursor: pointer;
   }
 `;
 

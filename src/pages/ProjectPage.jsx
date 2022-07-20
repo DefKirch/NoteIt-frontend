@@ -10,7 +10,6 @@ import TaskForm from "../components/TaskForm";
 import { statuses } from "../data/statuses";
 import DropWrapper from "../components/DropWrapper";
 import TaskColumn from "../components/TaskColumn";
-// import { iteratorSymbol } from "immer/dist/internal";
 
 const ProjectPage = () => {
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ const ProjectPage = () => {
     if (Project) {
       setTasks(Project.tasks);
     }
-  }, []);
+  }, [Project]);
 
   const onDrop = (task, monitor, status) => {
     const mapping = statuses.find((s) => s === status);
