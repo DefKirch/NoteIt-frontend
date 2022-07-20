@@ -155,25 +155,29 @@ const Task = styled.div`
 
   & .Task-Title {
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: 500;
+    color: black;
   }
   & .Description-Input {
     overflow-y: hidden;
+    opacity: 0.6;
+    // color: gray;
   }
   & .Arrow-Container {
     // display: none;
     position: absolute;
     justify-content: flex-end;
-    width: 4rem;
+    width: 3rem;
     right: 0;
     bottom: 0;
   }
   & .Arrow-Button {
+    color: gray;
     background-color: inherit;
     border: none;
     bottom: 0;
     right: 0;
-    width: 2rem;
+    width: 1.5rem;
     position: relative;
     height: 1.5rem;
   }
@@ -182,7 +186,7 @@ const Task = styled.div`
     background-color: lightgray;
   }
   & .X-Button {
-    font-size: 1.1rem;
+    color: gray;
     position: absolute;
     top: 0;
     right: 0;
