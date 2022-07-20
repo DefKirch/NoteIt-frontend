@@ -1,7 +1,13 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
 import { selectToken } from "../user/selectors";
-import { setProject, setMyProjects, addTask } from "./slice";
+import {
+  setProject,
+  setMyProjects,
+  addTask,
+  changeTaskStatus,
+  deleteOneTask,
+} from "./slice";
 
 export const fetchMyProjects = () => async (dispatch, getState) => {
   const token = selectToken(getState());
@@ -62,7 +68,6 @@ export const addNewTask =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(response.data);
       dispatch(addTask(response.data));
     } catch (e) {
       console.log(e.message);
@@ -70,22 +75,56 @@ export const addNewTask =
   };
 
 export const updateTask =
-  (title, description, id) => async (dispatch, getState) => {
+  (title, description, id, status) => async (dispatch, getState) => {
     const token = selectToken(getState());
     try {
+      console.log(title, description, id, status);
       const response = await axios.patch(
         `${apiUrl}/projects/task/${id}`,
         {
           title,
           description,
+          status,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      dispatch(updateTask(response.data));
-      console.log(response.data);
+      console.log(response.data.message);
     } catch (e) {
       console.log(e.message);
     }
   };
+
+export const updateTaskStatus = (id, status) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  try {
+    console.log(id, status);
+    const response = await axios.patch(
+      `${apiUrl}/projects/task/${id}`,
+      {
+        status,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    dispatch(changeTaskStatus({ id, status }));
+    console.log(response.data.message);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const deleteTask = (id) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  try {
+    const response = await axios.delete(`${apiUrl}/projects/task/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(response.data.message);
+    dispatch(deleteOneTask(id));
+  } catch (e) {
+    console.log(e.message);
+  }
+};

@@ -1,13 +1,7 @@
 import styled from "styled-components";
-import { Collapse, Fade } from "@mui/material";
+import { Collapse } from "@mui/material";
 import InputCard from "../InputCard";
 import { useState } from "react";
-
-// const useStyle = makeStyles((theme) => ({
-//   addTask: {
-//     padding: theme.spacing(1, 1, 1, 2),
-//   },
-// }));
 
 const TaskForm = ({ status }) => {
   const [open, setOpen] = useState(false);
