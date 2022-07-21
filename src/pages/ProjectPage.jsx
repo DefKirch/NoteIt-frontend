@@ -299,6 +299,7 @@ const Container = styled.div`
       padding: 1rem;
       position: absolute;
       width: 19rem;
+      color: white;
     }
   }
   & .Task-Container {

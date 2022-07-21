@@ -33,6 +33,7 @@ const TForm = styled.div`
     align-items: center;
     width: 21rem;
     border-radius: 0.2rem;
+    color: gray;
   }
   & .Input-Card-Row:hover {
     // background-color: rgba(0, 0, 0, 0.25);
