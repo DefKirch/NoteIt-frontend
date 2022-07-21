@@ -8,8 +8,10 @@ import { Homepage, Login, SignUp } from "./pages";
 import ProjectPage from "./pages/ProjectPage";
 import ProjectOverview from "./pages/ProjectOverview";
 import NewProjectForm from "./components/NewProjectForm";
+import ProfilePage from "./pages/ProfilePage";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend as Backend } from "react-dnd-html5-backend";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ function App() {
 
   return (
     <div>
+
       <DndProvider backend={Backend}>
         <Navigation />
         <MessageBox />
@@ -27,6 +30,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/me" element={<ProfilePage />} />
           <Route path="/myprojects" element={<ProjectOverview />} />
           <Route path="/project/:id" element={<ProjectPage />} />
           <Route path="/newproject" element={<NewProjectForm />} />
