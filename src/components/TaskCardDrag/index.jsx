@@ -142,11 +142,11 @@ const Task = styled.div`
   border-radius: 0.2rem;
   margin-bottom: 1rem;
   background-color: white;
-  color: black;
+  color: white;
   height: 7.5rem;
   max-height: fit-content;
   overflow-y: auto;
-  background-color: #ddd;
+  background-color: #9bb1d4;
   position: relative;
 
   & .Task-Container {
@@ -156,7 +156,7 @@ const Task = styled.div`
   & .Task-Title {
     font-size: 1.2rem;
     font-weight: 500;
-    color: black;
+    color: white;
   }
   & .Description-Input {
     overflow-y: hidden;
@@ -172,7 +172,7 @@ const Task = styled.div`
     bottom: 0;
   }
   & .Arrow-Button {
-    color: gray;
+    color: white;
     background-color: inherit;
     border: none;
     bottom: 0;
@@ -183,10 +183,10 @@ const Task = styled.div`
   }
   & .Arrow-Button:hover {
     cursor: pointer;
-    background-color: lightgray;
+    background-color: rgba(137, 196, 244, 0.5);
   }
   & .X-Button {
-    color: gray;
+    color: white;
     position: absolute;
     top: 0;
     right: 0;
@@ -194,7 +194,7 @@ const Task = styled.div`
     border: none;
   }
   & .X-Button:hover {
-    background-color: lightgrey;
+    background-color: rgba(137, 196, 244, 0.5);
     border-radius: 0.2rem;
     cursor: pointer;
   }

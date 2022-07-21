@@ -24,7 +24,7 @@ const TForm = styled.div`
   flex-direction: column;
   align-items: flex-start;
   //   border-radius: 0.5rem;
-  background-color: #ebecf0;
+  background-color: #aec4e6;
   position: absolute;
   bottom: 0;
   margin-bottom: 0.3rem;

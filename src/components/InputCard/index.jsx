@@ -64,7 +64,7 @@ const InputCardContainer = styled.div`
     cursor: pointer;
   }
   & .Confirm-Button {
-    background-color: green;
+    background-color: #1cc98a;
     padding: 0.5rem;
     border-radius: 0.2rem;
     margin: 0.5rem 0.5rem 0.5rem 0;

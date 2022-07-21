@@ -204,9 +204,11 @@ const Header = styled.div`
 
 const ProjectPageContainer = styled.div`
   display: flex;
-  color: white;
   height: calc(100vh - 8.2rem);
   color: black;
+  & html {
+    background-color: #cfd7e3;
+  }
   & .row {
     display: flex;
   }
@@ -219,7 +221,7 @@ const ProjectPageContainer = styled.div`
     border-radius: 0.2rem;
     overflow-y: auto;
     box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
-    background-color: #ebecf0;
+    background-color: #aec4e6;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -293,7 +295,7 @@ const Container = styled.div`
   & .sticky {
     z-index: 1;
     h3 {
-      background-color: #ebecf0;
+      background-color: #aec4e6;
       padding: 1rem;
       position: absolute;
       width: 19rem;
