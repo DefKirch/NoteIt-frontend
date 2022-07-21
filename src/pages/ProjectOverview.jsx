@@ -47,7 +47,7 @@ const Header = styled.div`
   margin: 0;
   padding: 0.5rem;
   height: 3rem;
-  background-color: #25252e;
+  background-color: #aec4e6;
   color: white;
 `;
 
