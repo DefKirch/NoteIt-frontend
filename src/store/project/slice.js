@@ -19,17 +19,8 @@ export const projectSlice = createSlice({
       state.project.tasks = [...state.project.tasks, action.payload];
     },
     changeTaskStatus: (state, action) => {
-      const arrayToUpdate = [...state.project.tasks];
-      arrayToUpdate.map((task) =>
-        task.id === action.payload.id
-          ? {
-              ...task,
-              status: action.payload.status,
-            }
-          : task
-      );
-      state.project.tasks = arrayToUpdate;
-      // console.log(state.project.tasks);
+      state.project.tasks.find((task) => task.id === action.payload.id).status =
+        action.payload.status;
     },
     deleteOneTask: (state, action) => {
       const updatedArray = [...state.project.tasks].filter(

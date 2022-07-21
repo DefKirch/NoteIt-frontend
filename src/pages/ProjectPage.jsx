@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-// import TaskCard from "../components/TaskCard";
 import TaskCardDrag from "../components/TaskCardDrag";
 import { selectProject } from "../store/project/selectors";
 import { fetchProject, addNewTask } from "../store/project/thunks";
@@ -24,7 +23,7 @@ const ProjectPage = () => {
     if (Project) {
       setTasks(Project.tasks);
     }
-  }, [Project]);
+  }, []);
 
   const onDrop = (task, monitor, status) => {
     const mapping = statuses.find((s) => s === status);
@@ -173,14 +172,6 @@ const ProjectPage = () => {
                 <TaskColumn>
                   {done
                     ? done.map((task, tdx) => (
-                        // <TaskCard
-                        //   key={task.id}
-                        //   id={task.id}
-                        //   title={task.title}
-                        //   description={task.description}
-                        //   status={task.status}
-                        //   createdAt={task.createdAt}
-                        // />
                         <TaskCardDrag
                           key={tdx}
                           item={task}
