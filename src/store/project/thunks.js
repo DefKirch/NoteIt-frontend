@@ -1,7 +1,13 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
 import { selectToken } from "../user/selectors";
-import { setProject, setMyProjects, addTask } from "./slice";
+import {
+  setProject,
+  setMyProjects,
+  addTask,
+  changeTaskStatus,
+  deleteOneTask,
+} from "./slice";
 
 export const fetchMyProjects = () => async (dispatch, getState) => {
   const token = selectToken(getState());
@@ -22,7 +28,7 @@ export const fetchProject = (id) => async (dispatch, getState) => {
     const response = await axios.get(`${apiUrl}/projects/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("Response:", response.data);
+    // console.log("Response:", response.data);
     dispatch(setProject(response.data));
   } catch (e) {
     console.log(e.message);
@@ -40,7 +46,6 @@ export const createNewProject =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // console.log("Response:", response.data.newProject.id);
       navigate(`/project/${response.data.newProject.id}`);
     } catch (e) {
       console.log(e.message);
@@ -51,7 +56,6 @@ export const addNewTask =
   (status, title, pId, description) => async (dispatch, getState) => {
     const token = selectToken(getState());
     try {
-      // console.log("Status:", status, "Title:", title, "pId:", pId);
       const response = await axios.post(
         `${apiUrl}/projects/task/${pId}`,
         {
@@ -62,7 +66,6 @@ export const addNewTask =
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log(response.data);
       dispatch(addTask(response.data));
     } catch (e) {
       console.log(e.message);
@@ -70,7 +73,7 @@ export const addNewTask =
   };
 
 export const updateTask =
-  (title, description, id) => async (dispatch, getState) => {
+  (title, description, id, status) => async (dispatch, getState) => {
     const token = selectToken(getState());
     try {
       const response = await axios.patch(
@@ -78,14 +81,47 @@ export const updateTask =
         {
           title,
           description,
+          status,
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      dispatch(updateTask(response.data));
-      console.log(response.data);
+      console.log(response.data.message);
     } catch (e) {
       console.log(e.message);
     }
   };
+
+export const updateTaskStatus = (id, status) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  try {
+    console.log(id, status);
+    const response = await axios.patch(
+      `${apiUrl}/projects/task/${id}`,
+      {
+        status,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    dispatch(changeTaskStatus({ id, status }));
+    console.log(response.data.message);
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const deleteTask = (id) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  try {
+    const response = await axios.delete(`${apiUrl}/projects/task/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(response.data.message);
+    dispatch(deleteOneTask(id));
+  } catch (e) {
+    console.log(e.message);
+  }
+};

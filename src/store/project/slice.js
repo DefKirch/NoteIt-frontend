@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
   project: null,
@@ -18,9 +18,25 @@ export const projectSlice = createSlice({
     addTask: (state, action) => {
       state.project.tasks = [...state.project.tasks, action.payload];
     },
+    changeTaskStatus: (state, action) => {
+      state.project.tasks.find((task) => task.id === action.payload.id).status =
+        action.payload.status;
+    },
+    deleteOneTask: (state, action) => {
+      const updatedArray = [...state.project.tasks].filter(
+        (task) => task.id !== action.payload
+      );
+      state.project.tasks = updatedArray;
+    },
   },
 });
 
-export const { setProject, setMyProjects, addTask } = projectSlice.actions;
+export const {
+  setProject,
+  setMyProjects,
+  addTask,
+  changeTaskStatus,
+  deleteOneTask,
+} = projectSlice.actions;
 
 export default projectSlice.reducer;

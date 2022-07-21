@@ -20,6 +20,10 @@ const InputCard = ({ setOpen, status }) => {
     }
   };
 
+  const handleClose = () => {
+    setTaskName("");
+    setOpen(false);
+  };
   return (
     <InputCardContainer>
       <div>
@@ -31,6 +35,7 @@ const InputCard = ({ setOpen, status }) => {
             className="InputBase-Selector"
             value={taskName}
             onChange={(e) => setTaskName(e.target.value)}
+            // onBlur={() => setOpen(false)}
           />
         </Paper>
       </div>
@@ -38,7 +43,7 @@ const InputCard = ({ setOpen, status }) => {
         <Button className="Confirm-Button" onClick={() => handleNewTask()}>
           Add
         </Button>
-        <MdClear className="Clear-Button" onClick={() => setOpen(false)} />
+        <MdClear className="Clear-Button" onClick={handleClose} />
       </div>
     </InputCardContainer>
   );
@@ -59,7 +64,7 @@ const InputCardContainer = styled.div`
     cursor: pointer;
   }
   & .Confirm-Button {
-    background-color: green;
+    background-color: #1cc98a;
     padding: 0.5rem;
     border-radius: 0.2rem;
     margin: 0.5rem 0.5rem 0.5rem 0;

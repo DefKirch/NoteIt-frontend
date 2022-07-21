@@ -2,19 +2,48 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import TaskCard from "../components/TaskCard";
+import TaskCardDrag from "../components/TaskCardDrag";
 import { selectProject } from "../store/project/selectors";
 import { fetchProject, addNewTask } from "../store/project/thunks";
-import { GrAdd } from "react-icons/gr";
 import TaskForm from "../components/TaskForm";
+import { statuses } from "../data/statuses";
+import DropWrapper from "../components/DropWrapper";
+import TaskColumn from "../components/TaskColumn";
 
 const ProjectPage = () => {
   const dispatch = useDispatch();
   const Project = useSelector(selectProject);
+  const [tasks, setTasks] = useState(null);
   const { id } = useParams();
   const [todos, setTodos] = useState();
   const [inProgress, setInProgress] = useState();
   const [done, setDone] = useState();
+
+  useEffect(() => {
+    if (Project) {
+      setTasks(Project.tasks);
+    }
+  }, []);
+
+  const onDrop = (task, monitor, status) => {
+    const mapping = statuses.find((s) => s === status);
+
+    setTasks((prevState) => {
+      const newTasks = prevState
+        .filter((i) => i.id !== task.id)
+        .concat({ ...task, status });
+      return [...newTasks];
+    });
+  };
+
+  const moveTask = (dragIndex, hoverIndex) => {
+    const task = tasks[dragIndex];
+    setTasks((prevState) => {
+      const newTasks = prevState.filter((i, idx) => idx !== dragIndex);
+      newTasks.splice(hoverIndex, 0, task);
+      return [...newTasks];
+    });
+  };
 
   const filterTodos = () => {
     setTodos(Project.tasks.filter((task) => task.status === "Todo"));
@@ -30,17 +59,17 @@ const ProjectPage = () => {
     setDone(Project.tasks.filter((task) => task.status === "Done"));
   };
 
+  const filterTheTasks = () => {
+    filterTodos();
+    filterInProgress();
+    filterDone();
+  };
+
   useEffect(() => {
     if (Project) {
-      filterTodos();
-      filterInProgress();
-      filterDone();
+      filterTheTasks();
     }
   }, [Project]);
-
-  const handleAdd = (status) => {
-    dispatch(addNewTask(status));
-  };
 
   useEffect(() => {
     dispatch(fetchProject(id));
@@ -54,100 +83,108 @@ const ProjectPage = () => {
             <h2>{Project.name}</h2>
           </Header>
           <ProjectPageContainer>
-            <TodoContainer>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <h3>Todo </h3>
-                {/* <AddButton onClick={() => handleAdd("Todo")}>
-                  <GrAdd className="GrAdd" />
-                </AddButton> */}
+            {/* <div className={"row"}>
+              {tasks
+                ? statuses.map((s) => {
+                    return (
+                      <>
+                        <div key={s}>
+                          <h2 className={"col-header"}>
+                            {s.toUpperCase()}
+                          </h2>
+                          <DropWrapper onDrop={onDrop} status={s}>
+                            <TaskColumn>
+                              {tasks
+                                ? tasks
+                                    .filter((t) => t.status === s)
+                                    .map((i, idx) => (
+                                      <TaskCardDrag
+                                        key={i.id}
+                                        item={i}
+                                        index={idx}
+                                        moveItem={moveTask}
+                                      />
+                                    ))
+                                : "loading"}
+                            </TaskColumn>
+                          </DropWrapper>
+                        </div>
+                      </>
+                    );
+                  })
+                : ""}
+            </div> */}
+            <TodoContainer className={"col-wrapper"}>
+              <div className="sticky">
+                <h3 className={"col-header sticky"}>Todo</h3>
               </div>
-
-              <div>
-                {todos
-                  ? todos.map((task) => {
-                      return (
-                        <TaskCard
+              <DropWrapper onDrop={onDrop} status={"Todo"}>
+                <TaskColumn>
+                  {todos
+                    ? todos.map((task, tdx) => (
+                        // <TaskCard
+                        //   key={task.id}
+                        //   id={task.id}
+                        //   title={task.title}
+                        //   description={task.description}
+                        //   status={task.status}
+                        //   createdAt={task.createdAt}
+                        // />
+                        <TaskCardDrag
                           key={task.id}
-                          id={task.id}
-                          title={task.title}
-                          description={task.description}
-                          status={task.status}
-                          createdAt={task.createdAt}
+                          item={task}
+                          index={tdx}
+                          moveItem={moveTask}
+                          filter={filterTheTasks}
                         />
-                      );
-                    })
-                  : ""}
-              </div>
+                      ))
+                    : ""}
+                </TaskColumn>
+              </DropWrapper>
               <TaskForm status="Todo" />
             </TodoContainer>
-            <InProgressContainer>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <h3>In Progress </h3>
-                {/* <AddButton onClick={() => handleAdd("In Progress")}>
-                  <GrAdd className="GrAdd" />
-                </AddButton> */}
+            <InProgressContainer className={"col-wrapper"}>
+              <div className="sticky">
+                <h3 className={"col-header"}>In Progress</h3>
               </div>
-              <div>
-                {inProgress
-                  ? inProgress.map((task) => {
-                      return (
-                        <TaskCard
-                          key={task.id}
-                          id={task.id}
-                          title={task.title}
-                          description={task.description}
-                          status={task.status}
-                          createdAt={task.createdAt}
+              <DropWrapper onDrop={onDrop} status={"In Progress"}>
+                <TaskColumn className="Task-Container">
+                  {inProgress
+                    ? inProgress.map((task, tdx) => (
+                        <TaskCardDrag
+                          key={tdx}
+                          item={task}
+                          index={tdx}
+                          moveItem={moveTask}
+                          filter={filterTheTasks}
                         />
-                      );
-                    })
-                  : ""}
-              </div>
+                      ))
+                    : ""}
+                </TaskColumn>
+              </DropWrapper>
               <TaskForm status="In Progress" />
             </InProgressContainer>
-            <DoneContainer>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
+            <DoneContainer className={"col-wrapper"}>
+              <div className="sticky">
                 <h3>Done </h3>
-                {/* <AddButton onClick={() => handleAdd("Done")}>
-                  <GrAdd className="GrAdd" />
-                </AddButton> */}
               </div>
-              <div>
-                {done
-                  ? done.map((task) => {
-                      return (
-                        <TaskCard
-                          key={task.id}
-                          id={task.id}
-                          title={task.title}
-                          description={task.description}
-                          status={task.status}
-                          createdAt={task.createdAt}
+              <DropWrapper onDrop={onDrop} status={"Done"}>
+                <TaskColumn>
+                  {done
+                    ? done.map((task, tdx) => (
+                        <TaskCardDrag
+                          key={tdx}
+                          item={task}
+                          index={tdx}
+                          moveItem={moveTask}
+                          filter={filterTheTasks}
                         />
-                      );
-                    })
-                  : ""}
-              </div>
+                      ))
+                    : ""}
+                </TaskColumn>
+              </DropWrapper>
               <TaskForm status="Done" />
-            </DoneContainer>
+            </DoneContainer>{" "}
           </ProjectPageContainer>
         </>
       ) : (
@@ -161,15 +198,37 @@ const Header = styled.div`
   margin: 0;
   padding: 0.5rem;
   height: 3rem;
-  background-color: #25252e;
+  background-color: #aec4e6;
   color: white;
 `;
 
 const ProjectPageContainer = styled.div`
   display: flex;
-  color: white;
   height: calc(100vh - 8.2rem);
   color: black;
+  & html {
+    background-color: #cfd7e3;
+  }
+  & .row {
+    display: flex;
+  }
+  & .col-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0.3rem 1rem 0.3rem 3rem;
+    padding: 0 1rem;
+    width: 20rem;
+    border-radius: 0.2rem;
+    overflow-y: auto;
+    box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
+    background-color: #aec4e6;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
 `;
 
 const TodoContainer = styled.div`
@@ -182,6 +241,13 @@ const TodoContainer = styled.div`
   overflow-y: auto;
   box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
   background-color: #ebecf0;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 `;
 
 const InProgressContainer = styled.div`
@@ -194,6 +260,13 @@ const InProgressContainer = styled.div`
   overflow-y: auto;
   box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
   background-color: #ebecf0;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 `;
 
 const DoneContainer = styled.div`
@@ -206,12 +279,32 @@ const DoneContainer = styled.div`
   overflow-y: auto;
   box-shadow: 0 0 0.3125rem rgba(0, 0, 0, 0.2);
   background-color: #ebecf0;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 `;
 
 const Container = styled.div`
   display: flex;
   flex-flow: column;
   height: 100%;
+  & .sticky {
+    z-index: 1;
+    h3 {
+      background-color: #aec4e6;
+      padding: 1rem;
+      position: absolute;
+      width: 19rem;
+      color: white;
+    }
+  }
+  & .Task-Container {
+    margin-top: 5rem;
+  }
 `;
 
 const AddButton = styled.button`

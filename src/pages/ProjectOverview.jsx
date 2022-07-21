@@ -20,7 +20,9 @@ const ProjectOverview = () => {
       <Header className="Project-Page-Header">
         <h2>My Projects ({Me ? Me.projects.length : ""})</h2>
       </Header>
-      <NewProjectButton to="/newproject">New Project</NewProjectButton>
+      <NewProjectButton to="/newproject">
+        <h3>Create New Project</h3>
+      </NewProjectButton>
       <ProjectsContainer>
         {Me
           ? Me.projects.map((project) => {
@@ -45,7 +47,7 @@ const Header = styled.div`
   margin: 0;
   padding: 0.5rem;
   height: 3rem;
-  background-color: #25252e;
+  background-color: #aec4e6;
   color: white;
 `;
 
@@ -59,18 +61,23 @@ const ProjectsContainer = styled.div`
 
 const NewProjectButton = styled(Link)`
   display: flex;
+  justify-content: center;
   text-decoration: none;
   color: white;
-  background: darkgray;
+  background: #9bb1d4;
   border: none;
   font: inherit;
   cursor: pointer;
-  width: 5rem;
+  width: 10rem;
   padding: 1rem;
   margin: 1rem;
   border-radius: 0.3rem;
+  transition: all 1s ease;
   &:hover {
+    font-size: 1.3rem;
+    width: 14rem;
     box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.05);
+    -webkit-transition: all 0.5s ease;
   }
 `;
 export default ProjectOverview;

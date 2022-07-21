@@ -2,7 +2,9 @@
   width: 1.4rem;
   height: 1.4rem;
   border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.4);
   margin: 0.2rem;
+  transition: inherit;
 }
 
 .Project-Link {
@@ -10,15 +12,26 @@
   max-width: 18rem;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.5rem;
-  color: black
+  font-size: inherit;
+  color: white;
+  transition: inherit;
 }
 
 .Project-Link:hover {
-  color: rgb(104, 104, 104);
-
+  color: black;
 }
+
+.Project-Card-Container {
+  transition: all 0.5s ease;
+  font-size: 1.6rem;
+}
+
 .Project-Card-Container:hover {
   box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.2);
+  font-size: 1.8rem;
+}
 
+.Project-Card-Container:hover  .avatar {
+  width: 1.6rem;
+  height: 1.6rem;
 }

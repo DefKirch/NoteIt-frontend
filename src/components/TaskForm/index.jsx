@@ -1,13 +1,7 @@
 import styled from "styled-components";
-import { Collapse, Fade } from "@mui/material";
+import { Collapse } from "@mui/material";
 import InputCard from "../InputCard";
 import { useState } from "react";
-
-// const useStyle = makeStyles((theme) => ({
-//   addTask: {
-//     padding: theme.spacing(1, 1, 1, 2),
-//   },
-// }));
 
 const TaskForm = ({ status }) => {
   const [open, setOpen] = useState(false);
@@ -30,7 +24,7 @@ const TForm = styled.div`
   flex-direction: column;
   align-items: flex-start;
   //   border-radius: 0.5rem;
-  background-color: #ebecf0;
+  background-color: #aec4e6;
   position: absolute;
   bottom: 0;
   margin-bottom: 0.3rem;
@@ -39,6 +33,7 @@ const TForm = styled.div`
     align-items: center;
     width: 21rem;
     border-radius: 0.2rem;
+    color: gray;
   }
   & .Input-Card-Row:hover {
     // background-color: rgba(0, 0, 0, 0.25);

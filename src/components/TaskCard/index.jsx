@@ -9,7 +9,9 @@ const TaskCard = ({ id, title, description, status, createdAt }) => {
   const date = new Date(createdAt).toLocaleDateString();
   const dispatch = useDispatch();
   const [cardTitle, setCardTitle] = useState(title);
-  const [cardDescription, setCardDescription] = useState(description);
+  const [cardDescription, setCardDescription] = useState(
+    description ? description : ""
+  );
   const handleBlur = () => {
     // if (!cardTitle === title) {
     dispatch(updateTask(cardTitle, cardDescription, id));
@@ -49,7 +51,8 @@ const Task = styled.div`
   background-color: white;
   color: black;
   height: 7.5rem;
-  overflow-y: hidden;
+  max-height: fit-content;
+  overflow-y: auto;
   background-color: #ddd;
   & .Task-Title {
     font-size: 1.2rem;
