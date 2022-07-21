@@ -37,7 +37,7 @@ const ProjectCardContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.05);
-  background-color: lightgrey;
+  background-color: #9bb1d4;
   border-radius: 0.2rem;
   margin: 0.5rem;
   padding: 1rem 1rem 1rem;
