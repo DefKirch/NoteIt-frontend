@@ -1,5 +1,16 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import styled from "styled-components";
+import { selectMe } from "../../store/project/selectors";
+import { fetchMyProjects } from "../../store/project/thunks";
 const ProfilePage = () => {
+  const dispatch = useDispatch();
+  const User = useSelector(selectMe);
+
+  useEffect(() => {
+    dispatch(fetchMyProjects());
+  }, []);
+
   return (
     <ProfilePageContainer>
       <div className="Left">

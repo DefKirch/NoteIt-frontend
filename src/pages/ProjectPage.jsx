@@ -5,7 +5,9 @@ import styled from "styled-components";
 import TaskCardDrag from "../components/TaskCardDrag";
 import { selectProject } from "../store/project/selectors";
 import { fetchProject, addNewTask } from "../store/project/thunks";
+import { IoSettingsOutline } from "react-icons/io5";
 import TaskForm from "../components/TaskForm";
+import ProjectSettings from "../components/ProjectSettings";
 import { statuses } from "../data/statuses";
 import DropWrapper from "../components/DropWrapper";
 import TaskColumn from "../components/TaskColumn";
@@ -18,7 +20,7 @@ const ProjectPage = () => {
   const [todos, setTodos] = useState();
   const [inProgress, setInProgress] = useState();
   const [done, setDone] = useState();
-
+  const [settingsIsOpen, setSettingsIsOpen] = useState(false);
   useEffect(() => {
     if (Project) {
       setTasks(Project.tasks);
@@ -81,39 +83,20 @@ const ProjectPage = () => {
         <>
           <Header className="Project-Page-Header">
             <h2>{Project.name}</h2>
+            <p>{Project.description}</p>
+            <SettingButton onClick={() => setSettingsIsOpen(!settingsIsOpen)}>
+              <IoSettingsOutline />
+            </SettingButton>
           </Header>
           <ProjectPageContainer>
-            {/* <div className={"row"}>
-              {tasks
-                ? statuses.map((s) => {
-                    return (
-                      <>
-                        <div key={s}>
-                          <h2 className={"col-header"}>
-                            {s.toUpperCase()}
-                          </h2>
-                          <DropWrapper onDrop={onDrop} status={s}>
-                            <TaskColumn>
-                              {tasks
-                                ? tasks
-                                    .filter((t) => t.status === s)
-                                    .map((i, idx) => (
-                                      <TaskCardDrag
-                                        key={i.id}
-                                        item={i}
-                                        index={idx}
-                                        moveItem={moveTask}
-                                      />
-                                    ))
-                                : "loading"}
-                            </TaskColumn>
-                          </DropWrapper>
-                        </div>
-                      </>
-                    );
-                  })
-                : ""}
-            </div> */}
+            {settingsIsOpen ? (
+              <ProjectSettings
+                Project={Project}
+                setSettingsIsOpen={setSettingsIsOpen}
+              />
+            ) : (
+              ""
+            )}
             <TodoContainer className={"col-wrapper"}>
               <div className="sticky">
                 <h3 className={"col-header sticky"}>Todo</h3>
@@ -122,14 +105,6 @@ const ProjectPage = () => {
                 <TaskColumn>
                   {todos
                     ? todos.map((task, tdx) => (
-                        // <TaskCard
-                        //   key={task.id}
-                        //   id={task.id}
-                        //   title={task.title}
-                        //   description={task.description}
-                        //   status={task.status}
-                        //   createdAt={task.createdAt}
-                        // />
                         <TaskCardDrag
                           key={task.id}
                           item={task}
@@ -200,6 +175,9 @@ const Header = styled.div`
   height: 3rem;
   background-color: #aec4e6;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 `;
 
 const ProjectPageContainer = styled.div`
@@ -324,4 +302,16 @@ const AddButton = styled.button`
   }
 `;
 
+const SettingButton = styled.button`
+  display: flex;
+  border: none;
+  background-color: inherit;
+  font-size: 1.5rem;
+  color: white;
+  border-radius: 0.2rem;
+  &:hover {
+    cursor: pointer;
+    background-color: #9eb6db;
+  }
+`;
 export default ProjectPage;

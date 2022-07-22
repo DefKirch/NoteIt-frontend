@@ -7,6 +7,7 @@ import {
   addTask,
   changeTaskStatus,
   deleteOneTask,
+  updateTaskInfo,
 } from "./slice";
 
 export const fetchMyProjects = () => async (dispatch, getState) => {
@@ -76,6 +77,7 @@ export const updateTask =
   (title, description, id, status) => async (dispatch, getState) => {
     const token = selectToken(getState());
     try {
+      console.log("Title", title);
       const response = await axios.patch(
         `${apiUrl}/projects/task/${id}`,
         {
@@ -88,6 +90,7 @@ export const updateTask =
         }
       );
       console.log(response.data.message);
+      dispatch(updateTaskInfo({ title, description, id }));
     } catch (e) {
       console.log(e.message);
     }

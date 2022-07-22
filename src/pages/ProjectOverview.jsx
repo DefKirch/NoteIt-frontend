@@ -7,21 +7,38 @@ import { Link } from "react-router-dom";
 import ProjectCard from "../components/ProjectCard";
 import { GrAdd } from "react-icons/gr";
 import ReactTooltip from "react-tooltip";
+import { useState } from "react";
+import NewProjectModal from "../components/NewProjectModal";
 
 const ProjectOverview = () => {
   const dispatch = useDispatch();
   const Me = useSelector(selectMyProjects);
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
     dispatch(fetchMyProjects());
   }, [dispatch]);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div>
       <Header className="Project-Page-Header">
         <h2>My Projects ({Me ? Me.projects.length : ""})</h2>
       </Header>
+      {/* <NewProjectModalButton onClick={openModal}>
+        <h3>Create new Project</h3>
+      </NewProjectModalButton>
+      <NewProjectModal isOpen={isOpen} onClose={onClose} />
+      <div id="app"></div> */}
       <NewProjectButton to="/newproject">
-        <h3>Create New Project</h3>
+        <p>Create New Project</p>
       </NewProjectButton>
       <ProjectsContainer>
         {Me
@@ -59,7 +76,7 @@ const ProjectsContainer = styled.div`
   margin: 1rem;
 `;
 
-const NewProjectButton = styled(Link)`
+const NewProjectModalButton = styled.button`
   display: flex;
   justify-content: center;
   text-decoration: none;
@@ -76,6 +93,31 @@ const NewProjectButton = styled(Link)`
   &:hover {
     font-size: 1.3rem;
     width: 14rem;
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.05);
+    -webkit-transition: all 0.5s ease;
+  }
+`;
+
+const NewProjectButton = styled(Link)`
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  background: #9bb1d4;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  width: 8rem;
+  height: 2rem;
+  padding: 0.5rem;
+  margin: 1rem 1rem 1rem 1.5rem;
+  font-size: 0.8rem;
+  border-radius: 0.3rem;
+  align-items: center;
+  transition: all 1s ease;
+  &:hover {
+    font-size: 1.2rem;
+    width: 10rem;
     box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.05);
     -webkit-transition: all 0.5s ease;
   }

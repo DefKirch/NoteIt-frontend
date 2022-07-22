@@ -18,6 +18,14 @@ export const projectSlice = createSlice({
     addTask: (state, action) => {
       state.project.tasks = [...state.project.tasks, action.payload];
     },
+    updateTaskInfo: (state, action) => {
+      // title, description, id
+      state.project.tasks.find((task) => task.id === action.payload.id).title =
+        action.payload.title;
+      state.project.tasks.find(
+        (task) => task.id === action.payload.id
+      ).description = action.payload.description;
+    },
     changeTaskStatus: (state, action) => {
       state.project.tasks.find((task) => task.id === action.payload.id).status =
         action.payload.status;
@@ -37,6 +45,7 @@ export const {
   addTask,
   changeTaskStatus,
   deleteOneTask,
+  updateTaskInfo,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;
