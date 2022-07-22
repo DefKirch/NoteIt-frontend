@@ -88,6 +88,7 @@ const NewProjectContainer = styled.div`
   }
   & .Submit-Button:hover {
     background-color: white;
+    cursor: pointer;
   }
 `;
 

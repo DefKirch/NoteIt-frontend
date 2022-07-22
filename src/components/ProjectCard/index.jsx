@@ -2,12 +2,20 @@ import styled from "styled-components";
 import ReactTooltip from "react-tooltip";
 import { Link } from "react-router-dom";
 import "./styles.css";
-const ProjectCard = ({ id, name, backgroundColor, color, users }) => {
+const ProjectCard = ({
+  id,
+  name,
+  backgroundColor,
+  color,
+  users,
+  description,
+}) => {
   return (
     <ProjectCardContainer className="Project-Card-Container">
       <Link className="Project-Link" to={`../project/${id}`}>
         {name}
       </Link>
+      <p className="Project-Card-Description">{description}</p>
       <UserIconContainer>
         {users
           ? users.map((user) => {
@@ -43,6 +51,10 @@ const ProjectCardContainer = styled.div`
   padding: 1rem 1rem 1rem;
   width: 20rem;
   height: 10rem;
+  & .Project-Card-Description {
+    font-size: 1rem;
+    color: white;
+  }
 `;
 
 const UserIconContainer = styled.div`

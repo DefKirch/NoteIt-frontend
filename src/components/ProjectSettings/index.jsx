@@ -10,8 +10,14 @@ const ProjectSettings = ({ Project, setSettingsIsOpen }) => {
       <button className="X-Button" onClick={() => setSettingsIsOpen(false)}>
         <IoCloseOutline />
       </button>
-      <p>{Project.description}</p>
-      <p>More settings coming</p>
+      <p>
+        {Project.description
+          ? Project.description
+          : "Project description empty"}
+      </p>
+      <p>
+        <bold>More settings coming !</bold>
+      </p>
       <div className="Users-Div">
         <p>Collaborators:</p>
 
@@ -38,14 +44,11 @@ const ProjectSettings = ({ Project, setSettingsIsOpen }) => {
             </p>
           );
         })}
-        <p>Add user</p>
-        <button
-          className="Close-Button"
-          onClick={() => setSettingsIsOpen(false)}
-        >
-          Close
-        </button>
+        <button className="Add-User-Button">Add a user</button>
       </div>
+      <button className="Close-Button" onClick={() => setSettingsIsOpen(false)}>
+        Close
+      </button>
     </Container>
   );
 };
@@ -111,6 +114,21 @@ const Container = styled.div`
     color: grey;
   }
   & .Close-Button:hover {
+    cursor: pointer;
+    color: white;
+    background-color: grey;
+  }
+  & .Add-User-Button {
+    background-color: inherit;
+    border: none;
+    font-size: 1.2rem;
+    -webkit-transition: all 0.25s ease;
+    border-radius: 0.2rem;
+    background-color: lightgrey;
+    color: grey;
+    margin-bottom: 1rem;
+  }
+  & .Add-User-Button:hover {
     cursor: pointer;
     color: white;
     background-color: grey;

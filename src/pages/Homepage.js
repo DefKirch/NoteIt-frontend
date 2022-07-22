@@ -38,8 +38,9 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     margin: 1rem;
-    padding: 1rem;
-    background-color: lightgrey;
+    padding: 1rem 3rem 3rem 3rem;
+    background-color: white;
     border-radius: 0.2rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   }
 `;
