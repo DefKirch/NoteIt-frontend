@@ -2,8 +2,19 @@ import styled from "styled-components";
 import { IoCloseOutline, IoRemoveCircleOutline } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { selectMe } from "../../store/project/selectors";
+import { useState } from "react";
 const ProjectSettings = ({ Project, setSettingsIsOpen }) => {
   const User = useSelector(selectMe);
+  const [showAddNewUser, setShowAddNewUser] = useState(false);
+  const toggleNewUser = () => {
+    setShowAddNewUser(!showAddNewUser);
+    // console.log(showAddNewUser);
+  };
+  const allUsers = [
+    { name: "email@address.com " },
+    { name: "Test2@2.com" },
+    { name: "Dwayne@therock.com" },
+  ];
   return (
     <Container>
       <h3>{Project.name}</h3>
@@ -44,7 +55,23 @@ const ProjectSettings = ({ Project, setSettingsIsOpen }) => {
             </p>
           );
         })}
-        <button className="Add-User-Button">Add a user</button>
+        <button className="Add-User-Button" onClick={() => toggleNewUser()}>
+          {showAddNewUser ? "X" : "Add new user"}
+        </button>
+        {showAddNewUser ? (
+          <div className="New-User-Window">
+            <p>Email-address</p>
+            <select>
+              {allUsers
+                ? allUsers.map((user) => {
+                    return <option>{user.name}</option>;
+                  })
+                : ""}
+            </select>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       <button className="Close-Button" onClick={() => setSettingsIsOpen(false)}>
         Close
@@ -132,6 +159,9 @@ const Container = styled.div`
     cursor: pointer;
     color: white;
     background-color: grey;
+  }
+  & .New-User-Window {
+    padding-bottom: 1rem;
   }
 `;
 

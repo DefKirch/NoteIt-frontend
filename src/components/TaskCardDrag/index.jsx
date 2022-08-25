@@ -101,7 +101,7 @@ const TaskCardDrag = ({ item, index, moveItem, filter }) => {
         <InputBase
           className="Task-Title"
           // multiline
-          onBlur={handleBlur}
+          onBl  ur={handleBlur}
           fullWidth
           value={cardTitle}
           onChange={(e) => setCardTitle(e.target.value)}
