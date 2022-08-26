@@ -128,3 +128,15 @@ export const deleteTask = (id) => async (dispatch, getState) => {
     console.log(e.message);
   }
 };
+
+export const fetchAllUsersEmailsAndId = () => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  try {
+    const response = await axios.get(`${apiUrl}/allusers`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log(response.data);
+  } catch (e) {
+    console.log(e.message);
+  }
+};

@@ -1,15 +1,25 @@
 import styled from "styled-components";
 import { IoCloseOutline, IoRemoveCircleOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectMe } from "../../store/project/selectors";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchAllUsersEmailsAndId } from "../../store/project/thunks";
+
 const ProjectSettings = ({ Project, setSettingsIsOpen }) => {
   const User = useSelector(selectMe);
+  const dispatch = useDispatch();
+
   const [showAddNewUser, setShowAddNewUser] = useState(false);
+
   const toggleNewUser = () => {
     setShowAddNewUser(!showAddNewUser);
     // console.log(showAddNewUser);
   };
+
+  useEffect(() => {
+    dispatch(fetchAllUsersEmailsAndId());
+  }, []);
+
   const allUsers = [
     { name: "email@address.com " },
     { name: "Test2@2.com" },
