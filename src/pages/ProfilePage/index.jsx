@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { selectMe } from "../../store/project/selectors";
 import { fetchMyProjects } from "../../store/project/thunks";
 import { useNavigate } from "react-router-dom";
-
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,19 +18,27 @@ const ProfilePage = () => {
         {User ? (
           <>
             <div className="Left">
-              <img
+              <div
+                className="Profile-Picture"
+                style={{
+                  backgroundImage: `url(${User.profilePicture})`,
+                }}
+              ></div>
+              {/* <img
                 src={User.profilePicture}
                 alt="Profile picture"
                 className="Profile-Picture"
-              />
+              /> */}
               <h2>{User.name}</h2>
             </div>
             <div className="Right">
               <div>
                 <p>Email: {User.email}</p>
                 <p>Phone: {User.phone ? User.phone : ""}</p>
-                <p>Account created at: {User.createdAt}</p>
-                <h2>Ability to change profile coming soon</h2>
+                <p>
+                  Account created at:{" "}
+                  {new Date(User.createdAt).toLocaleDateString("nl-NL")}
+                </p>
               </div>
               <div className="Button-Row">
                 <button onClick={() => navigate(-1)} className="Styled-Button">
@@ -68,9 +75,19 @@ const ProfilePageContainer = styled.div`
     color: white;
   }
   & .Profile-Picture {
+    background-position: center;
+    background-size: cover;
     max-height: 20rem;
+    height: 20rem;
     max-width 20rem;
+    width: 20rem;
     border-radius: 0.2rem;
+  }
+  & .Profile-Picture::after {
+    display: block;
+    content: url("public/edit-icon.png");
+    height: 10px;
+    width: 10px;
   }
   & .Button-Row {
     display: flex;
