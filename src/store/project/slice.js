@@ -3,6 +3,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 const initialState = {
   project: null,
   myProjects: null,
+  allUsersWithId: null,
 };
 
 export const projectSlice = createSlice({
@@ -36,6 +37,9 @@ export const projectSlice = createSlice({
       );
       state.project.tasks = updatedArray;
     },
+    saveAllUsersWithId: (state, action) => {
+      state.allUsersWithId = action.payload;
+    },
   },
 });
 
@@ -46,6 +50,7 @@ export const {
   changeTaskStatus,
   deleteOneTask,
   updateTaskInfo,
+  saveAllUsersWithId,
 } = projectSlice.actions;
 
 export default projectSlice.reducer;

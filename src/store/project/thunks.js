@@ -8,6 +8,7 @@ import {
   changeTaskStatus,
   deleteOneTask,
   updateTaskInfo,
+  saveAllUsersWithId,
 } from "./slice";
 
 export const fetchMyProjects = () => async (dispatch, getState) => {
@@ -16,7 +17,7 @@ export const fetchMyProjects = () => async (dispatch, getState) => {
     const response = await axios.get(`${apiUrl}/projects/me`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("Response:", response.data);
+    // console.log("Response:", response.data);
     dispatch(setMyProjects(response.data));
   } catch (e) {
     console.log(e.message);
@@ -132,10 +133,31 @@ export const deleteTask = (id) => async (dispatch, getState) => {
 export const fetchAllUsersEmailsAndId = () => async (dispatch, getState) => {
   const token = selectToken(getState());
   try {
-    const response = await axios.get(`${apiUrl}/allusers`, {
+    const response = await axios.get(`${apiUrl}/projects/allUsers`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     console.log(response.data);
+    dispatch(saveAllUsersWithId(response.data));
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+export const addNewUserToProject = (pId, uId) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  try {
+    console.log("pId: ", pId, " uId: ", uId);
+    const response = await axios.post(
+      `${apiUrl}/projects/newUserProject`,
+      {
+        pId,
+        uId,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log(response.message);
   } catch (e) {
     console.log(e.message);
   }

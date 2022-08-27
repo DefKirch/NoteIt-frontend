@@ -8,6 +8,7 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const User = useSelector(selectMe);
+
   useEffect(() => {
     dispatch(fetchMyProjects());
   }, []);

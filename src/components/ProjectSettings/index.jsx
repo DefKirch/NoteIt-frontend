@@ -1,30 +1,33 @@
 import styled from "styled-components";
 import { IoCloseOutline, IoRemoveCircleOutline } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
-import { selectMe } from "../../store/project/selectors";
+import { selectAllUsersWithId, selectMe } from "../../store/project/selectors";
 import { useState, useEffect } from "react";
-import { fetchAllUsersEmailsAndId } from "../../store/project/thunks";
+import {
+  fetchAllUsersEmailsAndId,
+  addNewUserToProject,
+} from "../../store/project/thunks";
 
 const ProjectSettings = ({ Project, setSettingsIsOpen }) => {
   const User = useSelector(selectMe);
+  const allUsersWithId = useSelector(selectAllUsersWithId);
   const dispatch = useDispatch();
-
+  const [newUserInputId, setNewUserInputId] = useState();
   const [showAddNewUser, setShowAddNewUser] = useState(false);
 
   const toggleNewUser = () => {
     setShowAddNewUser(!showAddNewUser);
-    // console.log(showAddNewUser);
+  };
+
+  const handleAddUser = () => {
+    console.log("newUserID: ", newUserInputId);
+    console.log("ProjectID: ", Project.id);
+    dispatch(addNewUserToProject(Project.id, newUserInputId));
   };
 
   useEffect(() => {
     dispatch(fetchAllUsersEmailsAndId());
   }, []);
-
-  const allUsers = [
-    { name: "email@address.com " },
-    { name: "Test2@2.com" },
-    { name: "Dwayne@therock.com" },
-  ];
   return (
     <Container>
       <h3>{Project.name}</h3>
@@ -44,8 +47,8 @@ const ProjectSettings = ({ Project, setSettingsIsOpen }) => {
 
         {Project.users.map((user) => {
           return (
-            <p className="User-Row">
-              <li style={{ display: "flex", alignItems: "center" }}>
+            <div className="User-Row">
+              <p style={{ display: "flex", alignItems: "center" }}>
                 <img
                   src={user.profilePicture}
                   className="avatar"
@@ -54,7 +57,7 @@ const ProjectSettings = ({ Project, setSettingsIsOpen }) => {
                 <li key={user.id}>
                   {user.name} - {user.email}
                 </li>
-              </li>
+              </p>
               {user.name !== User.name ? (
                 <button className="Remove-Button">
                   <IoRemoveCircleOutline />
@@ -62,7 +65,7 @@ const ProjectSettings = ({ Project, setSettingsIsOpen }) => {
               ) : (
                 ""
               )}
-            </p>
+            </div>
           );
         })}
         <button className="Add-User-Button" onClick={() => toggleNewUser()}>
@@ -70,14 +73,27 @@ const ProjectSettings = ({ Project, setSettingsIsOpen }) => {
         </button>
         {showAddNewUser ? (
           <div className="New-User-Window">
-            <p>Email-address</p>
-            <select>
-              {allUsers
-                ? allUsers.map((user) => {
-                    return <option>{user.name}</option>;
-                  })
-                : ""}
-            </select>
+            {/* <p>Email-address</p> */}
+            <div>
+              <select onChange={(e) => setNewUserInputId(e.target.value)}>
+                <option>Select a new User</option>
+                {allUsersWithId
+                  ? allUsersWithId.map((_user) => {
+                      if (_user.email !== User.email) {
+                        return <option value={_user.id}>{_user.email}</option>;
+                      } else {
+                        return 0;
+                      }
+                    })
+                  : ""}
+              </select>
+              <button
+                className="Add-User-Button"
+                onClick={() => handleAddUser()}
+              >
+                Add
+              </button>
+            </div>
           </div>
         ) : (
           ""
@@ -171,6 +187,8 @@ const Container = styled.div`
     background-color: grey;
   }
   & .New-User-Window {
+    margin-top: 0;
+    padding-top: 0;
     padding-bottom: 1rem;
   }
 `;
