@@ -1,5 +1,7 @@
 # NoteIt kanban app
 This README file is a quick showcase of what the app looks like and it's features.
+NoteIt is a Full Stack web app that functions as a Kanban board.
+The technologies I used for this project include: React, ReactDnD, Redux, Node.js, Express, Sequelize ORM & PostgreSQL 
 I created this app as my portfolio project while following the Codaisseur Full Stack JavaScript Bootcamp in 2022.
 
 ### You start of on the landing page where you are either prompted to login or to create a new account.
