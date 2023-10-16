@@ -8,3 +8,8 @@ I created this app as my portfolio project while following the Codaisseur Full S
 ### Then you get to your project overview page. As you can see this account already has a couple of projects. When you create a new account this page will be empty and you will be prompted to create your first project.
 ![Project overview](https://github.com/DefKirch/NoteIt-frontend/assets/98259991/d9d5d6f2-233f-4f03-86af-3ee43236de5a)
 
+### Opening a project brings you to this page: here you can add tasks, drag them to their respective column depending on their status.
+![AddTask](https://github.com/DefKirch/NoteIt-frontend/assets/98259991/8d407869-5f12-408f-b49e-e762fc5be255)
+
+### When clicking the settings wheel in the header you can add other colaborators to your project/remove them from your project.
+![AddColaborator](https://github.com/DefKirch/NoteIt-frontend/assets/98259991/925be753-e816-47de-9222-aa26d801025d)
